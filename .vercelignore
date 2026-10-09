@@ -5,6 +5,7 @@
 /node_modules
 /public/build
 /public/hot
+/public/index.php
 /database/*.sqlite*
 /storage/logs/*
 /storage/framework/views/*

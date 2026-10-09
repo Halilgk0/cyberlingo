@@ -1,58 +1,164 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
-
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <img src="public/favicon.svg" width="80" alt="">
 </p>
 
-## About Laravel
+<h1 align="center">CyberLingo</h1>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+<p align="center">
+  <strong>Siber güvenliği oyun gibi öğren.</strong><br>
+  Hiçbir şey bilmeyenler için Duolingo tarzı, Türkçe ve baştan sona interaktif bir siber güvenlik öğrenme uygulaması.
+</p>
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+<p align="center">
+  Laravel 13 · PHP 8.3+ · Tailwind CSS 4 · Vite · SQLite · Pest
+</p>
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+![CyberLingo ana sayfası](docs/screenshots/01-anasayfa.png)
 
-## Learning Laravel
+## Nedir?
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+CyberLingo, siber güvenliği ezberletmek yerine **yaptırarak** öğretir. Her görev birkaç dakikalık kısa bir anlatım, gerçek hayattan alınmış
+interaktif bir alıştırma ve küçük bir testten oluşur. Görevler bir öğrenme yolu üzerinde sırayla açılır; bitirdikçe XP toplar, günlük serini
+korur, seviye atlar ve rozet kazanırsın.
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Uygulamanın teması bir Orta Çağ kalesi: hendek, surlar, kapı, nöbetçiler ve hazine odası. Her görev dijital kalene yeni bir savunma
+katmanı ekler. Yol boyunca sana kalenin pelerinli küçük bekçisi **Bit** eşlik eder: doğru cevaplarda zıplar, yanlışlarda üzülür,
+görev bitince seninle birlikte kutlar.
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+## Öne çıkanlar
 
-## Agentic Development
+- **17 görev, 5 bölüm.** Normal dersler, kısa “ara bilgi” dersleri ve bölüm sonlarında geçme notu isteyen ejderha sınavları.
+- **Gerçekçi alıştırmalar.** Saniyede bir değişen kod üreten bir doğrulama uygulaması, saldırganın ekranından kafe Wi-Fi’ı trafiği,
+  sahte bir mağaza sayfasında tehlike işareti avı, Sezar çarkıyla şifre kırma, fidye yazılımı simülasyonu ve daha fazlası.
+- **Oyunlaştırma.** XP, günlük seri, Çırak’tan Siber Kahraman’a 6 seviye, 12 rozet, haftalık sıralama ve yolun sonunda yazdırılabilir
+  bir **Siber Şövalye Beratı**.
+- **Hesaplar.** Kayıt ve giriş, profil, maskot rengini seçme, hesabı silme. İlk görev hesap açmadan denenebilir; misafirken kazanılan
+  ilerleme kayıt olunca hesaba aktarılır.
+- **Canlı bir arayüz.** Animasyonlu maskot, konfetili kutlama ekranı, ses efektleri, kaydırdıkça beliren bölümler. Cihazında
+  “hareketi azalt” ayarı açıksa animasyonlar kapanır.
+- **Sözlük.** 45 terimin kısa açıklaması; her terim onu anlatan göreve bağlı ve Türkçe karakter yazmadan da aranabiliyor.
+- **Telefona uygun.** Telefonda alt sekme çubuğu ve dokunmaya uygun alıştırmalar.
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+## Ekran görüntüleri
+
+| | |
+|---|---|
+| ![Öğrenme yolu](docs/screenshots/02-ogrenme-yolu.png) | ![Doğrulama uygulaması alıştırması](docs/screenshots/03-iki-adimli-dogrulama.png) |
+| **Öğrenme yolu:** Kalkan biçimindeki görevler sırayla açılır; sıradaki görevde Bit seni bekler. | **İki adımlı doğrulama:** Telefondaki uygulama, gerçek uygulamalarla aynı yöntemle (TOTP) her 30 saniyede yeni bir kod üretir. |
+| ![Kale savunması dersi](docs/screenshots/04-kale-savunmasi.png) | ![Kutlama ekranı](docs/screenshots/05-kutlama.png) |
+| **Kale savunması:** Kalenin her katmanına tıklayınca siber dünyadaki karşılığı açılır. | **Kutlama:** Görev bitince XP, seri, seviye ve yeni rozetler. |
+| ![Siber Şövalye Beratı](docs/screenshots/06-berat.png) | ![Profil sayfası](docs/screenshots/07-profil.png) |
+| **Siber Şövalye Beratı:** Bütün görevleri bitirene verilen, yazdırılabilir berat. | **Profil:** Seri, XP, son 7 günün grafiği, seviye yolu ve rozetler. |
+
+<p align="center">
+  <img src="docs/screenshots/08-mobil.png" width="300" alt="Telefonda öğrenme yolu">
+</p>
+
+## Öğrenme yolu
+
+| Bölüm | # | Görev | Tür | Alıştırma |
+|---|---|---|---|---|
+| **I · Temeller** | 1 | Siber güvenliğe ilk adım | Ders | Olayları gizlilik, bütünlük ve erişilebilirlik kutularına ayır |
+| | 2 | Kaleni katman katman savun | Ara bilgi | Kalenin katmanlarını gez, derinlemesine savunmayı keşfet |
+| **II · Hesaplarını koru** | 3 | Güçlü bir parola oluştur | Ders | Parola laboratuvarında kırılma süresini canlı izle |
+| | 4 | İki adımlı doğrulamayı kur | Ders | Doğrulama uygulaması kur, sonra saldırgan olarak kodu tahmin etmeye çalış |
+| | 5 | Parola kasanı kur | Ara bilgi | Kasayı aç, parola üret ve kasanın sahte siteyi tanıdığını gör |
+| **III · Tuzakları tanı** | 6 | Bir bağlantının sahibini bul | Ders | Adres çubuğunda alan adını bul, sahte adresleri ayır |
+| | 7 | Oltalama e-postasını yakala | Ders | Gelen kutusundaki beş e-postayı güvenli ya da oltalama diye işaretle |
+| | 8 | Dolandırıcı mesajlarını tanı | Ders | İki sahte mesajlaşmada doğru yanıtları seç |
+| | 9 | Sahte mağazayı tanı | Ders | Mağaza sayfasında yedi tehlike işaretini bul |
+| | 10 | Ejderha sınavı: Usta oltacı | Ejderha sınavı | Beş ustaca e-posta; geçmek için en az 4 doğru |
+| **IV · Mahremiyetini koru** | 11 | Paylaşmadan önce düşün | Ders | Bir sosyal medya profilinde yedi tehlikeli bilgiyi bul |
+| | 12 | Uygulama izinlerini yönet | Ders | Dört uygulamaya yalnızca gereken izinleri ver |
+| **V · Verini ve bağlantını koru** | 13 | Şifrelemenin sırrını çöz | Ders | Sezar çarkıyla şifrele, gizli bir mesajı kır |
+| | 14 | Halka açık Wi-Fi’da güvende kal | Ders | Saldırganın ekranından http ve https trafiğini karşılaştır |
+| | 15 | Truva atı ve zararlı yazılımlar | Ders | Belirtilerden zararlı yazılımı teşhis et |
+| | 16 | Fidye yazılımına karşı yedekle | Ders | Fidye yazılımı simülasyonu ve felaket testli yedek planlayıcı |
+| | 17 | Son sınav: Kale kuşatması | Ejderha sınavı | Bütün konulardan 10 soru, tek hak; geçmek için en az 8 doğru |
+
+## Kurulum
+
+Gerekenler:
+
+- PHP 8.3 ya da daha yenisi (SQLite desteğiyle)
+- [Composer](https://getcomposer.org/) 2
+- [Node.js](https://nodejs.org/) 20.19 ya da 22.12 ve üzeri
 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+git clone https://github.com/Halilgk0/cyberlingo.git
+cd cyberlingo
+composer run setup
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+`composer run setup` bağımlılıkları kurar, `.env` dosyasını oluşturur, uygulama anahtarını üretir, SQLite veritabanını hazırlar ve
+arayüzü derler.
 
-## Contributing
+Uygulamayı başlatmak için:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```bash
+composer run dev
+```
 
-## Code of Conduct
+Bu komut web sunucusunu, kuyruk işleyicisini ve Vite’i birlikte çalıştırır. Ardından tarayıcında <http://localhost:8000> adresini aç.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+İstersen örnek verilerle doldurabilirsin:
 
-## Security Vulnerabilities
+```bash
+php artisan db:seed
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Bu komut haftalık sıralamada görünmeleri için beş örnek öğrenci ve `test@example.com` adresli, parolası `password` olan bir deneme hesabı
+ekler. Bu hesap yalnızca bilgisayarındaki geliştirme ortamı içindir.
 
-## License
+## Testler
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+php artisan test
+```
+
+Pest ile yazılmış 98 test; kayıt ve giriş, görevlerin sırayla açılması, XP ve seri hesapları, rozetler, sıralama ve beratın yanında
+alıştırma içeriklerinin doğru kurulduğunu da denetler (örneğin her sorunun tek bir doğru cevabı olması). Kod stili için
+`vendor/bin/pint` kullanılır.
+
+## Teknolojiler
+
+- **Laravel 13** ve **Blade bileşenleri**; ayrı bir ön yüz çatısı yok.
+- **Tailwind CSS 4** ve tek bir koyu tema. Renkler `resources/css/app.css` içindeki değişkenlerde.
+- **Sade JavaScript modülleri** ve **Vite**. Ses efektleri dosya yerine Web Audio ile üretilir.
+- **SQLite** veritabanı, Laravel’in yerleşik kimlik doğrulaması.
+- **Pest** testleri.
+- Yazı tipleri: başlıklarda Grenze Gotisch, etiketlerde Cinzel, gövde metninde Atkinson Hyperlegible. Derleme sırasında projeye gömülür.
+
+## Proje yapısı
+
+```text
+app/
+  Enums/Mission.php          Görevlerin sırası, başlıkları, türleri ve XP’leri
+  Enums/Chapter.php          Bölümler, renkleri ve “Biliyor muydun?” bilgileri
+  Enums/Rank.php             Seviyeler (Çırak … Siber Kahraman)
+  Enums/Achievement.php      Rozetler ve kazanılma koşulları
+  Models/User.php            XP, seri, seviye ve rozet hesapları
+  Http/Controllers/          Öğrenme yolu, görevler, hesap, profil, sıralama, berat
+resources/
+  views/missions/            Her görevin içeriği
+  views/components/          Tekrar kullanılan alıştırmalar, maskot, sancak, kutlama ekranı
+  js/missions/               Alıştırmaların davranışları
+  css/app.css                Tema, animasyonlar
+tests/                       Pest testleri
+```
+
+## Yeni görev eklemek
+
+1. `app/Enums/Mission.php` içine yeni bir durum ekle ve başlık, özet, süre, ikon, bölüm ve görünüm bilgilerini doldur.
+   Ders değilse türünü (`Interlude` ya da `Challenge`) belirt.
+2. `resources/views/missions/` altında `x-layouts.mission` ve `x-mission.step` kullanan bir görünüm oluştur. Hazır alıştırmalar
+   (`x-sorter`, `x-quiz`, `x-exam`, `x-chat`, `x-url-lab` …) çoğu ihtiyacı karşılar.
+3. Görevin bitmesi için tamamlanması gereken her alıştırmaya `data-requirement` ver.
+   Yeni bir etkileşim yazarsan, bittiğinde `completeRequirement()` çağır; maskotun tepki vermesi için de `react()` kullan.
+4. Görevi `tests/Feature/MissionControllerTest.php` içindeki listeye ekle ve testleri çalıştır.
+
+## Notlar
+
+- Alıştırmalardaki bütün kurumlar, kişiler, adresler ve telefon numaraları uydurmadır.
+- Alıştırmalara yazılan hiçbir şey bir yere gönderilmez; parola laboratuvarı ve parola kasası tamamen tarayıcıda çalışır.
+- İlerleme veritabanında tutulur. Misafirlerin ilerlemesi oturumda bekler ve kayıt olunca hesaba aktarılır.

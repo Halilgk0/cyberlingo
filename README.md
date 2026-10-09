@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  Laravel 13 · PHP 8.3+ · Tailwind CSS 4 · Vite · SQLite · Pest
+  Laravel 13 · PHP 8.3+ · Tailwind CSS 4 · Vite · SQLite / Postgres · Pest
 </p>
 
 ![CyberLingo ana sayfası](docs/screenshots/01-anasayfa.png)
@@ -27,17 +27,21 @@ görev bitince seninle birlikte kutlar.
 
 ## Öne çıkanlar
 
-- **17 görev, 5 bölüm.** Normal dersler, kısa “ara bilgi” dersleri ve bölüm sonlarında geçme notu isteyen ejderha sınavları.
+- **20 görev, 6 bölüm.** Normal dersler, kısa “ara bilgi” dersleri ve bölüm sonlarında geçme notu isteyen ejderha sınavları.
 - **Gerçekçi alıştırmalar.** Saniyede bir değişen kod üreten bir doğrulama uygulaması, saldırganın ekranından kafe Wi-Fi’ı trafiği,
   sahte bir mağaza sayfasında tehlike işareti avı, Sezar çarkıyla şifre kırma, fidye yazılımı simülasyonu ve daha fazlası.
-- **Oyunlaştırma.** XP, günlük seri, Çırak’tan Siber Kahraman’a 6 seviye, 12 rozet, haftalık sıralama ve yolun sonunda yazdırılabilir
+- **Kriz anında.** Veri sızıntısı raporu okuma, ele geçirilen hesabı geri alma ve kaybolan telefon için adım adım kriz planları;
+  aynı anda yapılabilecek adımlar istenen sırada seçilebilir, tuzak adımlar açıklamasıyla elenir.
+- **Oyunlaştırma.** XP, günlük seri, Çırak’tan Siber Kahraman’a 6 seviye, 14 rozet, haftalık sıralama ve yolun sonunda yazdırılabilir
   bir **Siber Şövalye Beratı**.
+- **Kale kontrol listesi.** Öğrendiklerini gerçek hayatta uyguladıkça işaretlediğin 12 maddelik kişisel güvenlik listesi. Her madde onu
+  anlatan göreve bağlı, işaretler hesabına kaydedilir ve listeyi bitirene rozet verilir.
 - **Hesaplar.** Kayıt ve giriş, profil, maskot rengini seçme, hesabı silme. İlk görev hesap açmadan denenebilir; misafirken kazanılan
   ilerleme kayıt olunca hesaba aktarılır.
 - **Canlı bir arayüz.** Animasyonlu maskot, konfetili kutlama ekranı, ses efektleri, kaydırdıkça beliren bölümler. Cihazında
   “hareketi azalt” ayarı açıksa animasyonlar kapanır.
-- **Sözlük.** 45 terimin kısa açıklaması; her terim onu anlatan göreve bağlı ve Türkçe karakter yazmadan da aranabiliyor.
-- **Telefona uygun.** Telefonda alt sekme çubuğu ve dokunmaya uygun alıştırmalar.
+- **Sözlük.** 52 terimin kısa açıklaması; her terim onu anlatan göreve bağlı ve Türkçe karakter yazmadan da aranabiliyor.
+- **Telefona uygun.** Telefonda alt sekme çubuğu, alt alta dizilen düzen ve dokunmaya uygun alıştırmalar.
 
 ## Ekran görüntüleri
 
@@ -74,7 +78,10 @@ görev bitince seninle birlikte kutlar.
 | | 14 | Halka açık Wi-Fi’da güvende kal | Ders | Saldırganın ekranından http ve https trafiğini karşılaştır |
 | | 15 | Truva atı ve zararlı yazılımlar | Ders | Belirtilerden zararlı yazılımı teşhis et |
 | | 16 | Fidye yazılımına karşı yedekle | Ders | Fidye yazılımı simülasyonu ve felaket testli yedek planlayıcı |
-| | 17 | Son sınav: Kale kuşatması | Ejderha sınavı | Bütün konulardan 10 soru, tek hak; geçmek için en az 8 doğru |
+| **VI · Kriz anında** | 17 | Verilerin sızdı: şimdi ne olacak? | Ders | Sızıntı raporunu oku, her sızıntıya doğru önlemi seç |
+| | 18 | Hesabın ele geçirildi: kriz planı | Ders | Hesabı geri almak için adımları doğru sırayla diz, tuzaklardan kaçın |
+| | 19 | Telefonun kayboldu ya da çalındı | Ara bilgi | Kaybolan telefonun ilk saatini planla |
+| | 20 | Son sınav: Kale kuşatması | Ejderha sınavı | Bütün konulardan 12 soru, tek hak; geçmek için en az 10 doğru |
 
 ## Kurulum
 
@@ -116,8 +123,8 @@ ekler. Bu hesap yalnızca bilgisayarındaki geliştirme ortamı içindir.
 php artisan test
 ```
 
-Pest ile yazılmış 98 test; kayıt ve giriş, görevlerin sırayla açılması, XP ve seri hesapları, rozetler, sıralama ve beratın yanında
-alıştırma içeriklerinin doğru kurulduğunu da denetler (örneğin her sorunun tek bir doğru cevabı olması). Kod stili için
+Pest ile yazılmış 114 test; kayıt ve giriş, görevlerin sırayla açılması, XP ve seri hesapları, rozetler, sıralama ve beratın yanında
+kontrol listesinin ve alıştırma içeriklerinin doğru kurulduğunu da denetler (örneğin her sorunun tek bir doğru cevabı olması). Kod stili için
 `vendor/bin/pint` kullanılır.
 
 ## Teknolojiler
@@ -125,7 +132,7 @@ alıştırma içeriklerinin doğru kurulduğunu da denetler (örneğin her sorun
 - **Laravel 13** ve **Blade bileşenleri**; ayrı bir ön yüz çatısı yok.
 - **Tailwind CSS 4** ve tek bir koyu tema. Renkler `resources/css/app.css` içindeki değişkenlerde.
 - **Sade JavaScript modülleri** ve **Vite**. Ses efektleri dosya yerine Web Audio ile üretilir.
-- **SQLite** veritabanı, Laravel’in yerleşik kimlik doğrulaması.
+- Bilgisayarında **SQLite**, Vercel’de **Postgres** veritabanı; Laravel’in yerleşik kimlik doğrulaması.
 - **Pest** testleri.
 - Yazı tipleri: başlıklarda Grenze Gotisch, etiketlerde Cinzel, gövde metninde Atkinson Hyperlegible. Derleme sırasında projeye gömülür.
 
@@ -137,15 +144,39 @@ app/
   Enums/Chapter.php          Bölümler, renkleri ve “Biliyor muydun?” bilgileri
   Enums/Rank.php             Seviyeler (Çırak … Siber Kahraman)
   Enums/Achievement.php      Rozetler ve kazanılma koşulları
+  Enums/ChecklistItem.php    Kale kontrol listesinin maddeleri
   Models/User.php            XP, seri, seviye ve rozet hesapları
-  Http/Controllers/          Öğrenme yolu, görevler, hesap, profil, sıralama, berat
+  Http/Controllers/          Öğrenme yolu, görevler, hesap, profil, sıralama, berat, kontrol listesi
 resources/
   views/missions/            Her görevin içeriği
   views/components/          Tekrar kullanılan alıştırmalar, maskot, sancak, kutlama ekranı
   js/missions/               Alıştırmaların davranışları
   css/app.css                Tema, animasyonlar
 tests/                       Pest testleri
+api/index.php                Vercel’in PHP çalışma ortamı için giriş noktası
+vercel.json                  Vercel ayarları
 ```
+
+## Vercel’e yükleme
+
+Uygulama, Vercel’in topluluk PHP çalışma ortamıyla ([vercel-php](https://github.com/vercel-community/php)) çalışacak şekilde hazır.
+Vercel’de dosya sistemi kalıcı olmadığı için veritabanı olarak Postgres kullanılır.
+
+1. [vercel.com/new](https://vercel.com/new) adresinde bu GitHub deposunu içe aktar. Ayarlar `vercel.json` içinde olduğu için başka bir şey
+   değiştirmene gerek yok.
+2. Projenin **Storage** sekmesinden bir **Neon** (Postgres) veritabanı oluştur ve projeye bağla. Bağlantı adresi `DATABASE_URL` olarak
+   kendiliğinden eklenir; uygulama bunu görünce Postgres’e geçer.
+3. **Settings → Environment Variables** altında `APP_KEY` ekle. Değerini bilgisayarında şu komutla üretebilirsin:
+
+   ```bash
+   php artisan key:generate --show
+   ```
+
+4. **Deployments** sekmesinden projeyi yeniden yayınla (Redeploy). Her yayında arayüz derlenir ve veritabanı tabloları
+   (`php artisan migrate`) kendiliğinden güncellenir.
+
+Ayrıntılar: derleme sırasında `composer.json` içindeki `vercel` betiği çalışır. Laravel’in önbellekleri ve derlenmiş görünümleri `/tmp`
+klasörüne yazılır, kayıtlar Vercel’in günlüklerine düşer (bkz. `api/index.php`).
 
 ## Yeni görev eklemek
 

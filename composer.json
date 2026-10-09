@@ -53,6 +53,10 @@
             "@php artisan config:clear --ansi @no_additional_args",
             "@php artisan test"
         ],
+        "vercel": [
+            "[ -f public/build/manifest.json ] || (npm ci && npm run build)",
+            "if [ -n \"${DB_URL:-$DATABASE_URL}\" ]; then DB_URL=\"${DATABASE_URL_UNPOOLED:-${DB_URL:-$DATABASE_URL}}\" php artisan migrate --force; else echo 'No database configured yet, skipping migrations.'; fi"
+        ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"

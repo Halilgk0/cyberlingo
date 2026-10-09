@@ -15,7 +15,7 @@
     <x-slot:header>
         <header class="bg-paper/90 border-line/70 sticky top-0 z-30 border-b backdrop-blur">
             <div class="mx-auto flex max-w-3xl items-center gap-3 px-4 py-3 sm:gap-5 sm:px-6">
-                <a href="{{ route('missions.index') }}" class="text-muted hover:text-ink hover:bg-ink/5 focus-visible:outline-ink -ml-1.5 rounded-xl p-1.5 focus-visible:outline-2" aria-label="Görevden çık, öğrenme yoluna dön">
+                <a href="{{ route('missions.index') }}" data-leave-mission class="text-muted hover:text-ink hover:bg-ink/5 focus-visible:outline-ink -ml-1.5 rounded-xl p-1.5 focus-visible:outline-2" aria-label="Görevden çık, öğrenme yoluna dön">
                     <x-icons.close class="size-7" />
                 </a>
                 <div data-lesson-progress role="progressbar" aria-label="Görevdeki ilerlemen" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" class="bg-line h-4 grow overflow-hidden rounded-full">
@@ -23,7 +23,7 @@
                         <span aria-hidden="true" class="absolute inset-x-2 top-[3px] h-1 rounded-full bg-white/35"></span>
                     </div>
                 </div>
-                <button type="button" data-sound-toggle aria-pressed="true" aria-label="Sesi kapat" class="text-muted hover:text-ink hover:bg-ink/5 focus-visible:outline-ink rounded-xl p-1.5 focus-visible:outline-2">
+                <button type="button" data-sound-toggle aria-pressed="true" aria-label="Sesi ve titreşimi kapat" class="text-muted hover:text-ink hover:bg-ink/5 focus-visible:outline-ink rounded-xl p-1.5 focus-visible:outline-2">
                     <x-icons.sound class="size-6" />
                 </button>
                 <p class="text-signal flex shrink-0 items-center gap-1 font-extrabold" title="Bu görevi bitirince kazanacağın XP">
@@ -58,9 +58,13 @@
                 <ol class="flex flex-wrap gap-2">
                     @foreach ($steps as $stepId => $stepLabel)
                         <li>
-                            <a href="#{{ $stepId }}" class="border-line hover:border-signal focus-visible:outline-ink bg-card/60 flex items-center gap-2 rounded-full border-2 py-1 pr-3.5 pl-1 text-sm font-bold sm:py-1.5 sm:pr-4 sm:pl-1.5 sm:text-base transition-colors focus-visible:outline-2 focus-visible:outline-offset-2">
-                                <span class="bg-signal font-rune grid size-7 place-items-center rounded-full text-xs font-bold text-[#1d1408]">{{ $numerals[$loop->index] ?? $loop->iteration }}</span>
+                            <a href="#{{ $stepId }}" data-step-link="{{ $stepId }}" class="group/step border-line hover:border-signal focus-visible:outline-ink bg-card/60 data-[done]:border-safe/60 flex items-center gap-2 rounded-full border-2 py-1 pr-3.5 pl-1 text-sm font-bold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 sm:py-1.5 sm:pr-4 sm:pl-1.5 sm:text-base">
+                                <span class="bg-signal font-rune group-data-[done]/step:bg-safe grid size-7 place-items-center rounded-full text-xs font-bold text-[#1d1408] transition-colors">
+                                    <span class="group-data-[done]/step:hidden">{{ $numerals[$loop->index] ?? $loop->iteration }}</span>
+                                    <x-icons.check class="hidden size-4 text-[#04210f] group-data-[done]/step:block" />
+                                </span>
                                 {{ $stepLabel }}
+                                <span data-step-status class="sr-only"></span>
                             </a>
                         </li>
                     @endforeach
@@ -77,4 +81,17 @@
 
     <x-coach :color="$avatarColor" />
     <x-celebration :color="$avatarColor" />
+
+    {{-- Asks before leaving a mission that has unsaved progress; the close button works without it too. --}}
+    <dialog data-leave-dialog aria-labelledby="leave-title" class="bg-card border-line text-ink m-auto w-[calc(100%-2rem)] max-w-sm rounded-[1.5rem] border-2 p-0 backdrop:bg-black/70">
+        <div class="flex flex-col items-center p-6 text-center sm:p-7">
+            <x-mascot :color="$avatarColor" mood="sad" class="size-20" />
+            <h2 id="leave-title" class="font-display mt-3 text-3xl leading-tight font-extrabold">Görevden çıkıyor musun?</h2>
+            <p class="text-muted mt-2 leading-relaxed">Bu görevde yaptıkların kaydedilmeyecek. Geri döndüğünde alıştırmalara baştan başlarsın.</p>
+            <div class="mt-6 flex w-full flex-col gap-3">
+                <button type="button" data-leave-stay class="btn-primary w-full" autofocus>Göreve devam et</button>
+                <a href="{{ route('missions.index') }}" class="btn-secondary w-full">Yine de çık</a>
+            </div>
+        </div>
+    </dialog>
 </x-layouts.app>

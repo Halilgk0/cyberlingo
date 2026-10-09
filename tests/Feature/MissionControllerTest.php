@@ -39,6 +39,12 @@ describe('index', function () {
             ]);
     });
 
+    it('can be added to a phone home screen as an app', function () {
+        $this->get('/')->assertOk()
+            ->assertSee('<link rel="manifest" href="/manifest.webmanifest">', false)
+            ->assertSee('<link rel="apple-touch-icon" href="/apple-touch-icon.png">', false);
+    });
+
     it('opens only the first mission to a guest', function () {
         $response = $this->get('/');
 
@@ -118,6 +124,15 @@ describe('show', function () {
         $learner = User::factory()->completed(Mission::SecurityBasics, Mission::CastleDefense, Mission::StrongPassword)->create();
 
         $this->actingAs($learner)->get(route('missions.show', Mission::TwoFactor))->assertOk();
+    });
+
+    it('asks before leaving a mission and ticks off its steps as they are done', function () {
+        $response = $this->get(route('missions.show', Mission::SecurityBasics));
+
+        $response->assertOk()
+            ->assertSee('Görevden çıkıyor musun?')
+            ->assertSee('data-step-link="ogren"', false)
+            ->assertSee('data-step-link="sina"', false);
     });
 
     it('shows the chapter of the mission above its title', function () {

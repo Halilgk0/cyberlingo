@@ -7,6 +7,13 @@ it('renders the registration form', function () {
     $this->get(route('register'))->assertOk()->assertSee('Hesabını oluştur');
 });
 
+it('lets the learner show the password and count its length while typing', function () {
+    $response = $this->get(route('register'));
+
+    expect(substr_count($response->getContent(), 'data-password-toggle-label'))->toBe(2)
+        ->and(substr_count($response->getContent(), 'data-password-length'))->toBe(1);
+});
+
 it('creates an account, logs the learner in and sends them to the path', function () {
     $response = $this->post(route('register'), [
         'name' => 'Ayşe',

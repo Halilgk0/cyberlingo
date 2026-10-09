@@ -25,6 +25,16 @@ const SOUNDS = {
     ],
 };
 
+/**
+ * A short buzz to go with each sound on phones that can vibrate: milliseconds on, off, on…
+ */
+const VIBRATIONS = {
+    correct: 12,
+    wrong: [40, 60, 40],
+    done: [15, 50, 15],
+    victory: [30, 60, 30, 60, 80],
+};
+
 let audioContext;
 
 function isEnabled() {
@@ -44,7 +54,15 @@ function setEnabled(isOn) {
 }
 
 export function play(name) {
-    if (!isEnabled() || !SOUNDS[name] || !window.AudioContext) {
+    if (!isEnabled()) {
+        return;
+    }
+
+    if (VIBRATIONS[name] && 'vibrate' in navigator) {
+        navigator.vibrate(VIBRATIONS[name]);
+    }
+
+    if (!SOUNDS[name] || !window.AudioContext) {
         return;
     }
 
@@ -68,8 +86,8 @@ export function play(name) {
 }
 
 /**
- * Plays a sound for every answer, finished step and finished mission,
- * and wires up the speaker buttons that turn sound on and off.
+ * Plays a sound (and, on phones, a short vibration) for every answer, finished step and
+ * finished mission, and wires up the speaker buttons that turn both on and off.
  */
 export function initSound() {
     const toggles = [...document.querySelectorAll('[data-sound-toggle]')];
@@ -79,7 +97,7 @@ export function initSound() {
 
         toggles.forEach((toggle) => {
             toggle.setAttribute('aria-pressed', String(isOn));
-            toggle.setAttribute('aria-label', isOn ? 'Sesi kapat' : 'Sesi aç');
+            toggle.setAttribute('aria-label', isOn ? 'Sesi ve titreşimi kapat' : 'Sesi ve titreşimi aç');
         });
     };
 

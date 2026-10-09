@@ -12,6 +12,10 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta name="theme-color" content="#0c0b0f">
         <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+        <link rel="manifest" href="/manifest.webmanifest">
+        <meta name="apple-mobile-web-app-title" content="{{ config('app.name') }}">
+        <meta name="description" content="Siber güvenliği oyun gibi öğren: hiçbir şey bilmeyenler için Türkçe, interaktif görevler.">
 
         <title>{{ $title ? $title.' | '.config('app.name') : config('app.name') }}</title>
 

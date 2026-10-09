@@ -67,6 +67,7 @@ export function initFinish() {
 
             const result = await response.json();
 
+            panel.setAttribute('data-saved', '');
             stamp.hidden = false;
             stamp.classList.add('stamp-in');
             status.textContent = 'Görev tamamlandı!';

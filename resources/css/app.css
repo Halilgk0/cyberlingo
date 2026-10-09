@@ -110,14 +110,14 @@
 
     /* Long-form reading text inside a mission's lesson. */
     .lesson {
-        @apply max-w-[65ch] text-lg leading-relaxed;
+        @apply max-w-[65ch] leading-relaxed sm:text-lg;
 
         & > :where(* + *) {
             @apply mt-4;
         }
 
         & :where(h3) {
-            @apply font-display text-signal pt-4 text-3xl leading-tight font-extrabold;
+            @apply font-display text-signal pt-4 text-2xl leading-tight font-extrabold sm:text-3xl;
         }
 
         & :where(ul) {

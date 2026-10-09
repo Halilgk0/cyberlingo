@@ -1,5 +1,8 @@
 <?php
 
+use App\Enums\Achievement;
+use App\Enums\Chapter;
+use App\Enums\ChecklistItem;
 use App\Enums\Mission;
 use App\Models\MissionCompletion;
 use App\Models\User;
@@ -56,6 +59,24 @@ describe('path', function () {
     it('points at the first mission not completed yet', function () {
         expect(User::factory()->completed(Mission::SecurityBasics)->create()->currentMission())->toBe(Mission::CastleDefense)
             ->and(User::factory()->completed(...Mission::cases())->create()->currentMission())->toBeNull();
+    });
+});
+
+describe('achievements', function () {
+    it('awards the crisis badge once every mission of the crisis chapter is completed', function () {
+        $almostDone = User::factory()->completed(...array_slice(Chapter::Crisis->missions(), 0, -1))->create();
+        $done = User::factory()->completed(...Chapter::Crisis->missions())->create();
+
+        expect($almostDone->earnedAchievements())->not->toContain(Achievement::CrisisDone)
+            ->and($done->earnedAchievements())->toContain(Achievement::CrisisDone);
+    });
+
+    it('awards the checklist badge only once every item is ticked', function () {
+        $almostDone = User::factory()->create(['checklist' => array_slice(ChecklistItem::cases(), 0, -1)]);
+        $done = User::factory()->create(['checklist' => ChecklistItem::cases()]);
+
+        expect($almostDone->earnedAchievements())->not->toContain(Achievement::ChecklistDone)
+            ->and($done->earnedAchievements())->toContain(Achievement::ChecklistDone);
     });
 });
 

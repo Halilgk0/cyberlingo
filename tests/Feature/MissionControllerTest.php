@@ -30,6 +30,10 @@ describe('index', function () {
                 'Halka açık Wi-Fi’da güvende kal',
                 'Truva atı ve zararlı yazılımlar',
                 'Fidye yazılımına karşı yedekle',
+                'Kriz anında',
+                'Verilerin sızdı: şimdi ne olacak?',
+                'Hesabın ele geçirildi: kriz planı',
+                'Telefonun kayboldu ya da çalındı',
                 'Son sınav: Kale kuşatması',
                 'Siber Kale',
             ]);
@@ -84,6 +88,9 @@ describe('show', function () {
         'public wifi' => ['halka-acik-wifi', 'Halka açık Wi-Fi’da güvende kal', 'missions.public-wifi'],
         'malware' => ['truva-ati', 'Truva atı ve zararlı yazılımlar', 'missions.malware'],
         'backups' => ['yedekle', 'Fidye yazılımına karşı yedekle', 'missions.backups'],
+        'data breach' => ['veri-sizintisi', 'Verilerin sızdı: şimdi ne olacak?', 'missions.data-breach'],
+        'account recovery' => ['hesabin-ele-gecirildi', 'Hesabın ele geçirildi: kriz planı', 'missions.account-recovery'],
+        'lost phone' => ['telefonun-kayboldu', 'Telefonun kayboldu ya da çalındı', 'missions.lost-phone'],
         'final siege' => ['son-sinav-kale-kusatmasi', 'Son sınav: Kale kuşatması', 'missions.final-siege'],
     ]);
 
@@ -222,15 +229,40 @@ describe('exercise content', function () {
             ->assertSee('data-autofill-site="mavibenk.com.tr"', false);
     });
 
-    it('renders the final siege as ten single-try questions with exactly one right answer each', function () {
+    it('renders the final siege as twelve single-try questions with exactly one right answer each', function () {
         $response = $this->get(route('missions.show', Mission::FinalSiege));
 
         $questions = array_slice(explode('data-exam-question ', $response->getContent()), 1);
         $rightAnswersPerQuestion = array_map(fn (string $question) => substr_count($question, 'data-correct'), $questions);
 
-        expect($response->getContent())->toContain('data-pass-score="8"')
-            ->and($rightAnswersPerQuestion)->toHaveCount(10)->each->toBe(1);
+        expect($response->getContent())->toContain('data-pass-score="10"')
+            ->and($rightAnswersPerQuestion)->toHaveCount(12)->each->toBe(1);
     });
+
+    it('renders the breach sorter with every leak filed under an existing action', function () {
+        $response = $this->get(route('missions.show', Mission::DataBreach));
+
+        preg_match_all('/data-sorter-bin="([^"]+)"/', $response->getContent(), $actions);
+        preg_match_all('/data-answer="([^"]+)"/', $response->getContent(), $answers);
+
+        expect($actions[1])->toBe(['parola', 'banka', 'tetikte'])
+            ->and($answers[1])->toHaveCount(6)->each->toBeIn($actions[1]);
+    });
+
+    it('renders the crisis plan with stages counting up from one and two traps', function (Mission $mission, int $stepCount) {
+        $content = $this->get(route('missions.show', $mission))->getContent();
+
+        preg_match_all('/data-stage="(\d+)"/', $content, $stages);
+        $distinctStages = array_map('intval', array_values(array_unique($stages[1])));
+        sort($distinctStages);
+
+        expect($stages[1])->toHaveCount($stepCount)
+            ->and($distinctStages)->toBe(range(1, count($distinctStages)))
+            ->and(substr_count($content, 'data-trap'))->toBe(2);
+    })->with([
+        'account recovery' => [Mission::AccountRecovery, 8],
+        'lost phone' => [Mission::LostPhone, 5],
+    ]);
 
     it('renders the wifi list with exactly one real network', function () {
         $response = $this->get(route('missions.show', Mission::PublicWifi));

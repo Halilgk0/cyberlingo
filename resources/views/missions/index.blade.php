@@ -6,7 +6,7 @@
         <section class="flex flex-wrap items-end justify-between gap-4 pt-10 pb-2 sm:pt-12">
             <div>
                 <p class="rune-label text-signal">Hoş geldin, {{ $learner->name }}</p>
-                <h1 class="font-display mt-1 text-5xl font-extrabold sm:text-6xl">Öğrenme yolun</h1>
+                <h1 class="font-display mt-1 text-4xl font-extrabold sm:text-6xl">Öğrenme yolun</h1>
             </div>
             @if ($currentMission)
                 <a href="{{ route('missions.show', $currentMission) }}" class="btn-primary">
@@ -18,7 +18,7 @@
         <section class="grid items-center gap-8 pt-10 pb-4 sm:pt-14 md:grid-cols-[1fr_auto]">
             <div>
                 <p class="rune-label text-signal">Dijital kaleni savunmayı öğren</p>
-                <h1 class="font-display mt-3 max-w-[13ch] text-6xl leading-[0.95] font-extrabold sm:text-8xl">
+                <h1 class="font-display mt-3 max-w-[13ch] text-5xl leading-[0.95] font-extrabold sm:text-8xl">
                     Siber güvenliği oyun gibi öğren.
                 </h1>
                 <p class="text-muted mt-6 max-w-[52ch] text-lg leading-relaxed">
@@ -40,7 +40,7 @@
         </section>
     @endif
 
-    <div class="mt-10 grid items-start gap-14 lg:grid-cols-[1fr_19rem]">
+    <div class="mt-10 grid grid-cols-1 items-start gap-14 lg:grid-cols-[minmax(0,1fr)_19rem]">
         <div class="flex flex-col gap-16">
             @foreach ($chapters as $chapter)
                 @php
@@ -149,6 +149,16 @@
                     <span>
                         <span class="font-display block text-lg font-extrabold">Haftalık sıralama</span>
                         <span class="text-muted block text-sm leading-snug">Bu hafta en çok XP toplayanlar arasında yerini gör.</span>
+                    </span>
+                </a>
+
+                <a href="{{ route('checklist.show') }}" class="bg-card border-line hover:border-rune flex items-center gap-3 rounded-[1.5rem] border-2 p-5 transition-colors">
+                    <x-icons.list-check class="text-rune size-10 shrink-0" />
+                    <span>
+                        <span class="font-display block text-lg font-extrabold">Kale kontrol listesi</span>
+                        <span class="text-muted block text-sm leading-snug">
+                            {{ count(\App\Enums\ChecklistItem::cases()) }} güvenlik alışkanlığından {{ count($learner->checkedItems()) }} tanesi tamam.
+                        </span>
                     </span>
                 </a>
             @else

@@ -5,12 +5,14 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Enums\Achievement;
 use App\Enums\AvatarColor;
+use App\Enums\ChecklistItem;
 use App\Enums\Mission;
 use App\Enums\Rank;
 use Carbon\CarbonImmutable;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
+use Illuminate\Database\Eloquent\Casts\AsEnumCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -21,7 +23,7 @@ use Illuminate\Support\Collection;
  * A learner. Everything about their progress (XP, streak, rank, badges) is worked
  * out from their mission completions, which are loaded once per request.
  */
-#[Fillable(['name', 'email', 'password', 'avatar_color'])]
+#[Fillable(['name', 'email', 'password', 'avatar_color', 'checklist'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
@@ -48,6 +50,7 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'avatar_color' => AvatarColor::class,
+            'checklist' => AsEnumCollection::of(ChecklistItem::class),
         ];
     }
 
@@ -171,6 +174,19 @@ class User extends Authenticatable
                     ->sum('xp'),
             ];
         }, range($days - 1, 0));
+    }
+
+    /**
+     * The items the learner has ticked on their security checklist, in list order.
+     *
+     * @return list<ChecklistItem>
+     */
+    public function checkedItems(): array
+    {
+        return array_values(array_filter(
+            ChecklistItem::cases(),
+            fn (ChecklistItem $item) => $this->checklist?->contains($item) ?? false,
+        ));
     }
 
     /**

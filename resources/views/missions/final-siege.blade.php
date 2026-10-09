@@ -1,7 +1,7 @@
 <x-layouts.mission :mission="$mission" :steps="['hazirlik' => 'Hazırlık', 'kusatma' => 'Kuşatma']">
     <x-slot:intro>
-        Uzun bir yoldan geçtin, yolcu. Şimdi kaleni kuşatan ordunun karşısındasın: her biri farklı bir saldırı olan on soru.
-        Her soruya tek hakkın var. En az sekizini doğru bilirsen kale ayakta kalır ve Siber Şövalye Beratını alırsın.
+        Uzun bir yoldan geçtin, yolcu. Şimdi kaleni kuşatan ordunun karşısındasın: her biri farklı bir saldırı olan on iki soru.
+        Her soruya tek hakkın var. En az onunu doğru bilirsen kale ayakta kalır ve Siber Şövalye Beratını alırsın.
     </x-slot:intro>
 
     <x-mission.step id="hazirlik" number="1" title="Kuşatmadan önce">
@@ -17,9 +17,10 @@
                 ['Pazar yeri', 'Gerçek olamayacak kadar ucuz teklif, havale isteği ve kimliği belirsiz satıcı.'],
                 ['Gizli geçitler', 'Paylaşımların ve uygulama izinlerin saldırgana yol gösterebilir.'],
                 ['Hazine odası', 'Şifreleme bilgini okunmaz kılar; 3-2-1 yedek her felakette kurtarır.'],
+                ['İşaret ateşi', 'Krizde sırayla davran: önce içeri gir ya da bul, sonra kilitle, arka kapıları kapat, en son haber ver.'],
             ] as [$layer, $reminder])
                 <li class="bg-card border-line flex gap-3 rounded-2xl border-2 p-4">
-                    <span class="bg-signal font-rune grid size-8 shrink-0 place-items-center rounded-full text-xs font-bold text-[#1d1408]">{{ ['I', 'II', 'III', 'IV', 'V', 'VI'][$loop->index] }}</span>
+                    <span class="bg-signal font-rune grid size-8 shrink-0 place-items-center rounded-full text-xs font-bold text-[#1d1408]">{{ ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII'][$loop->index] }}</span>
                     <span>
                         <span class="font-display block text-xl font-extrabold">{{ $layer }}</span>
                         <span class="text-muted block leading-relaxed">{{ $reminder }}</span>
@@ -29,13 +30,13 @@
         </ul>
 
         <x-callout tone="warning" title="Kuşatmanın kuralları" class="mt-8">
-            Her soruya tek hakkın var; cevap verdikten sonra doğru seçenek yeşil olarak gösterilir. On sorudan en az sekizini doğru bilmelisin.
+            Her soruya tek hakkın var; cevap verdikten sonra doğru seçenek yeşil olarak gösterilir. On iki sorudan en az onunu doğru bilmelisin.
             Kale düşerse sınavı baştan başlatabilirsin.
         </x-callout>
     </x-mission.step>
 
     <x-mission.step id="kusatma" number="2" title="Kuşatma">
-        <x-exam pass="8" requirement="Son sınavı en az 8 doğruyla geç" class="mt-2">
+        <x-exam pass="10" requirement="Son sınavı en az 10 doğruyla geç" class="mt-2">
             <x-exam.question topic="Surlar · Parola" prompt="Bu parolalardan hangisi en güçlüsü?">
                 <x-quiz.option>Galatasaray1905!</x-quiz.option>
                 <x-quiz.option>P@r0la2026</x-quiz.option>
@@ -133,6 +134,26 @@
 
                 <x-slot:explanation>
                     Üç kopya, iki farklı ortam (disk ve bulut) ve biri evin dışında. Çıkarılan disk fidye yazılımından, bulut da yangından ve hırsızlıktan korur.
+                </x-slot:explanation>
+            </x-exam.question>
+
+            <x-exam.question topic="İşaret ateşi · Sızıntı" prompt="Bir sızıntı raporunda yalnızca adının, telefonunun ve adresinin sızdığını gördün. Ne yapmalısın?">
+                <x-quiz.option>Hemen bütün parolalarımı değiştiririm; başka bir şey gerekmez.</x-quiz.option>
+                <x-quiz.option correct>Tetikte olurum: bu bilgileri bilen mesajlar ve aramalar gerçek olduklarını kanıtlamaz.</x-quiz.option>
+                <x-quiz.option>Hiçbir şey; parola sızmadıysa tehlike yoktur.</x-quiz.option>
+
+                <x-slot:explanation>
+                    Kişisel bilgiler değiştirilemez ama hedefli oltalamayı çok inandırıcı kılar. “Adresinize kargonuz gelemedi” diyen ve adını bilen bir mesaj, yine de bir tuzak olabilir.
+                </x-slot:explanation>
+            </x-exam.question>
+
+            <x-exam.question topic="İşaret ateşi · Ele geçirilen hesap" prompt="Ele geçirilen e-posta hesabını geri aldın ve parolanı değiştirdin. Saldırganı tamamen dışarıda bırakmak için hangisi de gerekli?">
+                <x-quiz.option>Hesabın adını değiştirmek.</x-quiz.option>
+                <x-quiz.option>Eski e-postaların hepsini silmek.</x-quiz.option>
+                <x-quiz.option correct>Açık oturumlardan çıkış yapmak, yönlendirme kurallarını ve bağlı uygulamaları temizlemek.</x-quiz.option>
+
+                <x-slot:explanation>
+                    Saldırganlar içerideyken arka kapı bırakır. Açık bir oturum ya da gizli bir yönlendirme kuralı, yeni parolana rağmen onu içeride tutar.
                 </x-slot:explanation>
             </x-exam.question>
         </x-exam>

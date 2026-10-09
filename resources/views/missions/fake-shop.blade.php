@@ -55,7 +55,7 @@
                         <span class="size-3 rounded-full bg-[#d6dbe4]"></span>
                         <span class="size-3 rounded-full bg-[#d6dbe4]"></span>
                     </span>
-                    <p class="min-w-0 truncate rounded-full bg-white px-3 py-1 font-mono text-sm">
+                    <p class="min-w-0 rounded-2xl bg-white px-3 py-1 font-mono text-xs break-all sm:rounded-full sm:text-sm">
                         <x-leak label="Şüpheli adres" risk="Markanın resmi sitesi değil: “tini-resmi-indirim.shop” bir başkasının alan adı. Marka adına eklenen “resmi” ve “indirim” kelimeleri güven vermek için orada.">https://tini-resmi-indirim.shop/kulaklik</x-leak>
                     </p>
                 </div>

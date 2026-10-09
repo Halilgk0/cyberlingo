@@ -26,6 +26,9 @@ enum Mission: string
     case PublicWifi = 'halka-acik-wifi';
     case Malware = 'truva-ati';
     case Backups = 'yedekle';
+    case DataBreach = 'veri-sizintisi';
+    case AccountRecovery = 'hesabin-ele-gecirildi';
+    case LostPhone = 'telefonun-kayboldu';
     case FinalSiege = 'son-sinav-kale-kusatmasi';
 
     /**
@@ -69,7 +72,7 @@ enum Mission: string
     public function kind(): MissionKind
     {
         return match ($this) {
-            self::CastleDefense, self::PasswordVault => MissionKind::Interlude,
+            self::CastleDefense, self::PasswordVault, self::LostPhone => MissionKind::Interlude,
             self::PhishingDragon, self::FinalSiege => MissionKind::Challenge,
             default => MissionKind::Lesson,
         };
@@ -82,7 +85,8 @@ enum Mission: string
             self::StrongPassword, self::TwoFactor, self::PasswordVault => Chapter::Accounts,
             self::ReadingLinks, self::PhishingEmail, self::ScamMessages, self::FakeShop, self::PhishingDragon => Chapter::Traps,
             self::Oversharing, self::AppPermissions => Chapter::Privacy,
-            self::Encryption, self::PublicWifi, self::Malware, self::Backups, self::FinalSiege => Chapter::DataAndConnections,
+            self::Encryption, self::PublicWifi, self::Malware, self::Backups => Chapter::DataAndConnections,
+            self::DataBreach, self::AccountRecovery, self::LostPhone, self::FinalSiege => Chapter::Crisis,
         };
     }
 
@@ -105,6 +109,9 @@ enum Mission: string
             self::PublicWifi => 'Halka açık Wi-Fi’da güvende kal',
             self::Malware => 'Truva atı ve zararlı yazılımlar',
             self::Backups => 'Fidye yazılımına karşı yedekle',
+            self::DataBreach => 'Verilerin sızdı: şimdi ne olacak?',
+            self::AccountRecovery => 'Hesabın ele geçirildi: kriz planı',
+            self::LostPhone => 'Telefonun kayboldu ya da çalındı',
             self::FinalSiege => 'Son sınav: Kale kuşatması',
         };
     }
@@ -128,19 +135,22 @@ enum Mission: string
             self::PublicWifi => 'Kafe ağındaki bir saldırganın neler görebildiğini kendi gözünle izle ve sahte ağların arasından doğru olanı seç.',
             self::Malware => 'Virüsten solucana, casus yazılımdan Truva atına zararlı yazılım türlerini tanı ve belirtilerden teşhis koy.',
             self::Backups => 'Bir fidye yazılımı saldırısını güvenle yaşa, sonra her felakete dayanan bir yedekleme planı kur.',
-            self::FinalSiege => 'Bütün yolun son sınavı: on soruluk bir kuşatma, her soruya tek hak. Kaleyi savunmak için en az sekizini doğru bil.',
+            self::DataBreach => 'Bir şirketin verileri sızdığında senin için neyin değiştiğini öğren, sızıntı raporunu oku ve her sızıntıya doğru önlemi seç.',
+            self::AccountRecovery => 'Bir hesabın ele geçirildiğini nasıl anlayacağını öğren, sonra hesabını geri almak için adım adım bir kriz planı kur.',
+            self::LostPhone => 'Telefonun kaybolmadan önce yapman gereken hazırlıkları ve kaybolduğu ilk saatte izlemen gereken sırayı öğren.',
+            self::FinalSiege => 'Bütün yolun son sınavı: on iki soruluk bir kuşatma, her soruya tek hak. Kaleyi savunmak için en az onunu doğru bil.',
         };
     }
 
     public function estimatedMinutes(): int
     {
         return match ($this) {
-            self::CastleDefense, self::PasswordVault => 4,
+            self::CastleDefense, self::PasswordVault, self::LostPhone => 4,
             self::SecurityBasics, self::StrongPassword => 5,
             self::ReadingLinks, self::ScamMessages => 6,
-            self::PhishingEmail, self::FakeShop, self::Oversharing, self::AppPermissions, self::PublicWifi, self::Malware => 7,
-            self::TwoFactor, self::PhishingDragon, self::Encryption, self::Backups => 8,
-            self::FinalSiege => 10,
+            self::PhishingEmail, self::FakeShop, self::Oversharing, self::AppPermissions, self::PublicWifi, self::Malware, self::DataBreach => 7,
+            self::TwoFactor, self::PhishingDragon, self::Encryption, self::Backups, self::AccountRecovery => 8,
+            self::FinalSiege => 12,
         };
     }
 
@@ -166,6 +176,9 @@ enum Mission: string
             self::PublicWifi => 'icons.wifi',
             self::Malware => 'icons.bug',
             self::Backups => 'icons.archive',
+            self::DataBreach => 'icons.droplet',
+            self::AccountRecovery => 'icons.siren',
+            self::LostPhone => 'icons.locate',
             self::FinalSiege => 'icons.shield',
         };
     }
@@ -189,6 +202,9 @@ enum Mission: string
             self::PublicWifi => 'missions.public-wifi',
             self::Malware => 'missions.malware',
             self::Backups => 'missions.backups',
+            self::DataBreach => 'missions.data-breach',
+            self::AccountRecovery => 'missions.account-recovery',
+            self::LostPhone => 'missions.lost-phone',
             self::FinalSiege => 'missions.final-siege',
         };
     }

@@ -29,35 +29,42 @@
         ['term' => 'Güncelleme', 'english' => 'update, patch', 'definition' => 'Yazılımdaki hataları ve güvenlik açıklarını kapatan düzeltme. Telefonun ya da bilgisayarın güncelleme isterse erteleme.', 'mission' => Mission::SecurityBasics],
         ['term' => 'Güvenlik açığı', 'english' => 'vulnerability', 'definition' => 'Bir yazılımdaki, saldırganların izinsiz erişim için kullanabileceği hata. Güncellemeler bu açıkları kapatır.', 'mission' => Mission::Malware],
         ['term' => 'Halka açık Wi-Fi', 'english' => 'public Wi-Fi', 'definition' => 'Kafe, havalimanı, otel gibi yerlerde herkesin bağlanabildiği kablosuz ağ. Aynı ağdaki herkesle aynı yolu paylaştığın için önemli işleri mobil veriyle yapmak daha güvenlidir.', 'mission' => Mission::PublicWifi],
+        ['term' => 'Hash', 'english' => 'karıştırılmış parola', 'definition' => 'Parolanın geri çevrilemeyen bir matematik işlemiyle karıştırılmış hali. Siteler parolaları böyle saklar; ama zayıf parolalar tahminle kısa sürede bulunur.', 'mission' => Mission::DataBreach],
         ['term' => 'Hedefli oltalama', 'english' => 'spear phishing', 'definition' => 'Senin hakkında toplanan bilgilerle (okulun, işin, arkadaşların) sana özel hazırlanmış, bu yüzden çok daha inandırıcı olan oltalama mesajı.', 'mission' => Mission::Oversharing],
         ['term' => 'Hizmet engelleme saldırısı', 'english' => 'DoS', 'definition' => 'Bir siteyi sahte isteklere boğarak kullanılamaz hale getirme saldırısı.', 'mission' => Mission::SecurityBasics],
         ['term' => 'Homoglif saldırısı', 'english' => 'homograph attack', 'definition' => 'Başka alfabelerden birebir aynı görünen harflerle sahte alan adı kurmak (Kiril “а” ile Latin “a” gibi). Tarayıcılar bu adresleri “xn--” ile başlayan halleriyle gösterir.', 'mission' => Mission::PhishingDragon],
         ['term' => 'HTTPS', 'english' => null, 'definition' => 'Tarayıcınla site arasındaki bağlantıyı şifreleyen yöntem. Adres çubuğundaki kilit simgesi, sitenin güvenilir olduğunu değil, bağlantının şifreli olduğunu söyler.', 'mission' => Mission::PublicWifi],
+        ['term' => 'IMEI', 'english' => null, 'definition' => 'Her telefonun 15 haneli kimlik numarası. *#06# tuşlayarak görebilirsin. Kayıp ya da çalıntı bildiriminde telefonun bu numarayla şebekeye kapatılır.', 'mission' => Mission::LostPhone],
         ['term' => 'İki adımlı doğrulama', 'english' => '2FA', 'definition' => 'Girişte parolana ek olarak telefonuna gelen kod gibi ikinci bir kanıt isteyen koruma. Parolan çalınsa bile hesabını korur.', 'mission' => Mission::TwoFactor],
         ['term' => 'İzin', 'english' => 'permission', 'definition' => 'Bir uygulamanın kamera, konum, rehber gibi telefon özelliklerine erişebilmesi için verdiğin onay.', 'mission' => Mission::AppPermissions],
         ['term' => 'Kaba kuvvet saldırısı', 'english' => 'brute force', 'definition' => 'Bütün olasılıkları tek tek deneyerek bir parolayı ya da şifreyi kırma yöntemi. Uzun parolalar ve büyük anahtarlar buna karşı korur.', 'mission' => Mission::StrongPassword],
-        ['term' => 'Kimlik bilgisi doldurma', 'english' => 'credential stuffing', 'definition' => 'Bir sızıntıda ele geçen kullanıcı adı ve parolaların başka sitelerde otomatik olarak denenmesi. Her hesapta farklı parola kullanmak korur.', 'mission' => Mission::StrongPassword],
+        ['term' => 'Kayıp modu', 'english' => 'lost mode', 'definition' => 'Kaybolan bir telefonu uzaktan kilitleyip ekranına sana ulaşılabilecek bir mesaj yazdıran özellik.', 'mission' => Mission::LostPhone],
+        ['term' => 'Kimlik bilgisi doldurma', 'english' => 'credential stuffing', 'definition' => 'Bir sızıntıda ele geçen kullanıcı adı ve parolaların başka sitelerde otomatik olarak denenmesi. Her hesapta farklı parola kullanmak korur.', 'mission' => Mission::DataBreach],
         ['term' => 'Kötü ikiz', 'english' => 'evil twin', 'definition' => 'Saldırganın gerçek bir Wi-Fi ağına benzeyen isimle kurduğu sahte ağ. Bağlananların trafiği saldırganın cihazından geçer.', 'mission' => Mission::PublicWifi],
         ['term' => 'Oltalama', 'english' => 'phishing', 'definition' => 'Güvendiğin bir kurum ya da kişi gibi görünerek seni bir bağlantıya tıklamaya veya bilgilerini vermeye kandıran sahte mesaj ya da site.', 'mission' => Mission::PhishingEmail],
+        ['term' => 'Oturum', 'english' => 'session', 'definition' => 'Bir hesaba giriş yaptığın her cihazda açık kalan bağlantı. Ele geçirilen bir hesapta “tüm cihazlardan çıkış yap” ile saldırganın oturumunu kapatırsın.', 'mission' => Mission::AccountRecovery],
         ['term' => 'Parola yöneticisi', 'english' => 'password manager', 'definition' => 'Tüm parolalarını şifreli olarak saklayan ve senin için güçlü parolalar üreten uygulama. Sadece tek bir ana parolayı hatırlaman yeter.', 'mission' => Mission::PasswordVault],
-        ['term' => 'Sızıntı', 'english' => 'data breach', 'definition' => 'Bir kurumun sakladığı bilgilerin (e-postalar, parolalar, adresler) saldırganların eline geçmesi.', 'mission' => Mission::StrongPassword],
+        ['term' => 'Sızıntı', 'english' => 'data breach', 'definition' => 'Bir kurumun sakladığı bilgilerin (e-postalar, parolalar, adresler) saldırganların eline geçmesi.', 'mission' => Mission::DataBreach],
         ['term' => 'Solucan', 'english' => 'worm', 'definition' => 'Kimse bir şeye tıklamadan ağ üzerinden kendi kendine yayılan zararlı yazılım. Güncellenmemiş sistemlerdeki açıkları kullanır.', 'mission' => Mission::Malware],
         ['term' => 'Sosyal mühendislik', 'english' => 'social engineering', 'definition' => 'Bilgisayarı değil insanı kandırarak bilgi, para ya da erişim elde etme. Korku, aciliyet ve güven duygularını kullanır.', 'mission' => Mission::ScamMessages],
         ['term' => 'Sözlük saldırısı', 'english' => 'dictionary attack', 'definition' => 'Sık kullanılan parolaların ve kelimelerin listesini sırayla deneyerek parola tahmin etme.', 'mission' => Mission::StrongPassword],
+        ['term' => 'Şantaj e-postası', 'english' => 'extortion scam', 'definition' => 'Eski bir sızıntıdan bulunan parolanı yazıp “bilgisayarına girdim, seni kaydettim” diyerek para isteyen e-posta. Neredeyse her zaman yalandır; para gönderme, yanıt verme.', 'mission' => Mission::DataBreach],
         ['term' => 'Şifreleme', 'english' => 'encryption', 'definition' => 'Bir bilgiyi anahtarı olmayanların okuyamayacağı hale getirme. HTTPS, uçtan uca şifreleme ve telefon kilidi bunu kullanır.', 'mission' => Mission::Encryption],
         ['term' => 'Truva atı', 'english' => 'trojan', 'definition' => 'Faydalı bir program gibi görünüp kurulunca arkasından zararlı işler yapan yazılım. Korsan oyunlar ve sahte güncellemeler en sevdiği kılıklardır.', 'mission' => Mission::Malware],
         ['term' => 'Tuş kaydedici', 'english' => 'keylogger', 'definition' => 'Klavyede yazdığın her şeyi, parolaların dahil, kaydedip saldırgana gönderen casus yazılım.', 'mission' => Mission::Malware],
         ['term' => 'Uçtan uca şifreleme', 'english' => 'end-to-end encryption', 'definition' => 'Mesajın gönderenin cihazında şifrelenip sadece alıcının cihazında çözülmesi. Aradaki sunucu bile mesajı okuyamaz.', 'mission' => Mission::Encryption],
         ['term' => 'URL', 'english' => null, 'definition' => 'Bir web sayfasının tam adresi, örneğin https://www.mavibank.com.tr/giris. Protokol, alan adı ve yol gibi parçalardan oluşur.', 'mission' => Mission::ReadingLinks],
+        ['term' => 'Uzaktan silme', 'english' => 'remote wipe', 'definition' => 'Kaybolan ya da çalınan bir cihazdaki bütün bilgileri internet üzerinden silme. Bazı telefonlarda sildikten sonra konum görülemez; önce bulmayı dene.', 'mission' => Mission::LostPhone],
         ['term' => 'VPN', 'english' => null, 'definition' => 'Cihazının trafiğini şifreli bir tünelle başka bir sunucuya taşıyan hizmet. Aynı ağdaki kişilerden gizler, ama trafiğin VPN şirketinden geçer.', 'mission' => Mission::PublicWifi],
         ['term' => 'Yedek', 'english' => 'backup', 'definition' => 'Dosyalarının ayrı bir yerde tutulan kopyası. 3-2-1 kuralı: 3 kopya, 2 farklı ortam, 1 kopya evin dışında.', 'mission' => Mission::Backups],
+        ['term' => 'Yönlendirme kuralı', 'english' => 'forwarding rule', 'definition' => 'Gelen e-postaları otomatik olarak başka bir adrese gönderen ayar. Hesabı ele geçiren saldırganlar gizlice ekler; parolan değişse bile e-postalarını okumaya devam ederler.', 'mission' => Mission::AccountRecovery],
         ['term' => 'Zararlı yazılım', 'english' => 'malware', 'definition' => 'Cihazına zarar vermek, bilgilerini çalmak ya da seni gözetlemek için yazılmış program. Virüsler, casus yazılımlar ve fidye yazılımları bu gruptadır.', 'mission' => Mission::Malware],
     ];
 @endphp
 
 <x-layouts.app title="Sözlük">
     <section class="pt-10 pb-12 sm:pt-16">
-        <h1 class="font-display text-5xl leading-[0.95] font-extrabold tracking-tight sm:text-7xl">Sözlük</h1>
+        <h1 class="font-display text-4xl leading-[0.95] font-extrabold tracking-tight sm:text-7xl">Sözlük</h1>
         <p class="text-muted mt-6 max-w-[56ch] text-lg leading-relaxed">
             Görevlerde geçen terimlerin kısa ve anlaşılır açıklamaları. Her terimin altında, onu ayrıntısıyla anlatan görev var.
         </p>
@@ -77,7 +84,7 @@
     <div class="flex flex-col gap-12">
         @foreach (collect($terms)->groupBy(fn (array $term) => mb_substr($term['term'], 0, 1)) as $letter => $letterTerms)
             <section data-glossary-group aria-label="{{ $letter }} harfi">
-                <h2 aria-hidden="true" class="font-display border-line border-b pb-2 text-4xl font-extrabold">{{ $letter }}</h2>
+                <h2 aria-hidden="true" class="font-display border-line border-b pb-2 text-3xl font-extrabold sm:text-4xl">{{ $letter }}</h2>
                 <dl class="mt-5 grid gap-3 md:grid-cols-2">
                     @foreach ($letterTerms as $term)
                         <div data-glossary-term class="bg-card border-line flex flex-col rounded-2xl border p-5">

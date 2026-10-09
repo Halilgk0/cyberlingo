@@ -16,11 +16,13 @@ enum Achievement: string
     case TrapsDone = 'tuzak-avcisi';
     case PrivacyDone = 'mahremiyet-koruyucusu';
     case DataDone = 'veri-kalkani';
+    case CrisisDone = 'sogukkanli';
     case DragonSlayer = 'ejderha-avcisi';
     case Practiced = 'pratik-yapan';
     case ThreeDayStreak = 'uc-gunluk-seri';
     case WeekStreak = 'yedi-gunluk-seri';
     case FiveHundredXp = 'bes-yuz-xp';
+    case ChecklistDone = 'kale-denetcisi';
     case AllMissions = 'siber-kahraman';
 
     public function title(): string
@@ -32,11 +34,13 @@ enum Achievement: string
             self::TrapsDone => 'Tuzak avcısı',
             self::PrivacyDone => 'Mahremiyet koruyucusu',
             self::DataDone => 'Veri kalkanı',
+            self::CrisisDone => 'Soğukkanlı',
             self::DragonSlayer => 'Ejderha avcısı',
             self::Practiced => 'Pratik yapan',
             self::ThreeDayStreak => 'Isınma turu',
             self::WeekStreak => 'Ateş gibi',
             self::FiveHundredXp => 'Beş yüzlük',
+            self::ChecklistDone => 'Kale denetçisi',
             self::AllMissions => 'Siber kahraman',
         };
     }
@@ -50,11 +54,13 @@ enum Achievement: string
             self::TrapsDone => '“Tuzakları tanı” bölümünü bitir.',
             self::PrivacyDone => '“Mahremiyetini koru” bölümünü bitir.',
             self::DataDone => '“Verini ve bağlantını koru” bölümünü bitir.',
+            self::CrisisDone => '“Kriz anında” bölümünü bitir.',
             self::DragonSlayer => 'Bir ejderha sınavını geç.',
             self::Practiced => 'Bitirdiğin bir görevi tekrar oyna.',
             self::ThreeDayStreak => '3 gün üst üste görev yap.',
             self::WeekStreak => '7 gün üst üste görev yap.',
             self::FiveHundredXp => 'Toplam 500 XP topla.',
+            self::ChecklistDone => 'Kale kontrol listesindeki bütün maddeleri işaretle.',
             self::AllMissions => 'Öğrenme yolundaki bütün görevleri tamamla.',
         };
     }
@@ -68,11 +74,13 @@ enum Achievement: string
             self::TrapsDone => '🎣',
             self::PrivacyDone => '🕶️',
             self::DataDone => '🛡️',
+            self::CrisisDone => '🚨',
             self::DragonSlayer => '🐉',
             self::Practiced => '🔁',
             self::ThreeDayStreak => '🔥',
             self::WeekStreak => '☄️',
             self::FiveHundredXp => '⚡',
+            self::ChecklistDone => '📜',
             self::AllMissions => '🏆',
         };
     }
@@ -91,11 +99,13 @@ enum Achievement: string
             self::TrapsDone => $completedChapter(Chapter::Traps),
             self::PrivacyDone => $completedChapter(Chapter::Privacy),
             self::DataDone => $completedChapter(Chapter::DataAndConnections),
+            self::CrisisDone => $completedChapter(Chapter::Crisis),
             self::DragonSlayer => collect($user->completedMissions())->contains(fn (Mission $mission) => $mission->kind() === MissionKind::Challenge),
             self::Practiced => $user->replayCount() > 0,
             self::ThreeDayStreak => $user->longestStreak() >= 3,
             self::WeekStreak => $user->longestStreak() >= 7,
             self::FiveHundredXp => $user->totalXp() >= 500,
+            self::ChecklistDone => count($user->checkedItems()) === count(ChecklistItem::cases()),
             self::AllMissions => count($user->completedMissions()) === count(Mission::cases()),
         };
     }

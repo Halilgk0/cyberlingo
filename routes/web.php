@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\CertificateController;
+use App\Http\Controllers\ChecklistController;
 use App\Http\Controllers\LeaderboardController;
 use App\Http\Controllers\MissionCompletionController;
 use App\Http\Controllers\MissionController;
@@ -30,4 +31,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profil', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/siralama', [LeaderboardController::class, 'index'])->name('leaderboard');
     Route::get('/berat', [CertificateController::class, 'show'])->name('certificate');
+    Route::get('/kontrol-listesi', [ChecklistController::class, 'show'])->name('checklist.show');
+    Route::put('/kontrol-listesi', [ChecklistController::class, 'update'])->middleware('throttle:60,1')->name('checklist.update');
 });

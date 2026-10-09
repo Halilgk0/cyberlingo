@@ -15,6 +15,9 @@
         'Tanıdığın biri yeni bir numaradan para isterse onu eski numarasından ara.',
         'Güvenlik sorularına gerçek cevaplar yerine rastgele cevaplar yaz ve kasanda sakla.',
         'Masadan kalkarken ekranını kilitle; açık bir ekranın tek fotoğrafı her şeyi anlatabilir.',
+        'Telefonunda “Cihazımı bul” özelliğinin açık olduğunu bugün kontrol et; telefon kaybolduktan sonra açılamaz.',
+        '“Parolanı biliyorum” diyen şantaj e-postalarına para gönderme; o parola eski bir sızıntıdan bulunmuştur.',
+        'Hesaplarındaki kurtarma e-postası ve telefon numarası güncel mi? Hesabın ele geçirilirse geri dönüş yolun onlar.',
     ];
     $tip = $tips[now()->dayOfYear % count($tips)];
 @endphp

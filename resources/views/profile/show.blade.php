@@ -87,17 +87,31 @@
         </section>
     </div>
 
-    <a href="{{ route('certificate') }}" class="border-signal/40 riveted mt-4 flex items-center gap-4 rounded-[1.5rem] border-2 bg-linear-to-r from-[#2b2218] to-[#1f1912] p-5 transition-colors hover:border-signal">
-        <span aria-hidden="true" class="grid size-14 shrink-0 place-items-center rounded-full bg-[radial-gradient(circle_at_35%_30%,#b8333f,#7a1522)] text-[#f3cc7a]">
-            <x-icons.shield class="size-7" />
-        </span>
-        <span class="min-w-0 grow">
-            <span class="font-display block text-2xl font-extrabold">Siber Şövalye Beratı</span>
-            <span class="text-muted block leading-snug">
-                {{ count($learner->completedMissions()) === $missionCount ? 'Beratın hazır, mühürlendi! Görüntüle ve yazdır.' : 'Bütün görevleri bitirince mühürlenecek: '.count($learner->completedMissions()).' / '.$missionCount }}
+    <div class="mt-4 grid gap-4 lg:grid-cols-2">
+        <a href="{{ route('certificate') }}" class="border-signal/40 riveted flex items-center gap-4 rounded-[1.5rem] border-2 bg-linear-to-r from-[#2b2218] to-[#1f1912] p-5 transition-colors hover:border-signal">
+            <span aria-hidden="true" class="grid size-14 shrink-0 place-items-center rounded-full bg-[radial-gradient(circle_at_35%_30%,#b8333f,#7a1522)] text-[#f3cc7a]">
+                <x-icons.shield class="size-7" />
             </span>
-        </span>
-    </a>
+            <span class="min-w-0 grow">
+                <span class="font-display block text-2xl font-extrabold">Siber Şövalye Beratı</span>
+                <span class="text-muted block leading-snug">
+                    {{ count($learner->completedMissions()) === $missionCount ? 'Beratın hazır, mühürlendi! Görüntüle ve yazdır.' : 'Bütün görevleri bitirince mühürlenecek: '.count($learner->completedMissions()).' / '.$missionCount }}
+                </span>
+            </span>
+        </a>
+
+        <a href="{{ route('checklist.show') }}" class="border-rune/40 riveted flex items-center gap-4 rounded-[1.5rem] border-2 bg-linear-to-r from-[#16262a] to-[#141a1e] p-5 transition-colors hover:border-rune">
+            <span aria-hidden="true" class="bg-rune/15 text-rune grid size-14 shrink-0 place-items-center rounded-full">
+                <x-icons.list-check class="size-7" />
+            </span>
+            <span class="min-w-0 grow">
+                <span class="font-display block text-2xl font-extrabold">Kale kontrol listesi</span>
+                <span class="text-muted block leading-snug">
+                    {{ count(\App\Enums\ChecklistItem::cases()) }} güvenlik alışkanlığından {{ count($learner->checkedItems()) }} tanesi tamam.
+                </span>
+            </span>
+        </a>
+    </div>
 
     <section data-reveal aria-labelledby="achievements-heading" class="mt-12">
         <h2 id="achievements-heading" class="font-display text-3xl font-extrabold tracking-tight">Rozetler</h2>

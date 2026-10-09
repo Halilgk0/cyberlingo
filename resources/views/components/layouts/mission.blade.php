@@ -36,7 +36,7 @@
     </x-slot:header>
 
     <div class="mx-auto max-w-3xl">
-        <header class="pt-8 pb-12 sm:pt-12">
+        <header class="pt-6 pb-10 sm:pt-12 sm:pb-12">
             <p class="rune-label text-signal flex flex-wrap items-center gap-x-2 gap-y-1">
                 <span>Görev {{ $mission->number() }} · {{ $mission->chapter()->title() }}</span>
                 @unless ($mission->kind() === \App\Enums\MissionKind::Lesson)
@@ -47,18 +47,18 @@
                     ])>{{ $mission->kind()->label() }}</span>
                 @endunless
             </p>
-            <h1 class="font-display mt-2 text-5xl leading-[1] font-extrabold sm:text-7xl">{{ $mission->title() }}</h1>
+            <h1 class="font-display mt-2 text-4xl leading-[1.05] font-extrabold text-balance sm:text-7xl">{{ $mission->title() }}</h1>
 
-            <div class="mt-8 flex items-start gap-3 sm:gap-5">
-                <x-mascot :color="$avatarColor" mood="wave" class="size-14 shrink-0 sm:size-24" />
-                <x-speech-bubble class="mt-1 text-lg leading-relaxed sm:mt-3">{{ $intro }}</x-speech-bubble>
+            <div class="mt-6 flex items-start gap-3 sm:mt-8 sm:gap-5">
+                <x-mascot :color="$avatarColor" mood="wave" class="size-12 shrink-0 sm:size-24" />
+                <x-speech-bubble class="mt-1 leading-relaxed sm:mt-3 sm:text-lg">{{ $intro }}</x-speech-bubble>
             </div>
 
             <nav aria-label="Görev adımları" class="mt-8">
                 <ol class="flex flex-wrap gap-2">
                     @foreach ($steps as $stepId => $stepLabel)
                         <li>
-                            <a href="#{{ $stepId }}" class="border-line hover:border-signal focus-visible:outline-ink bg-card/60 flex items-center gap-2 rounded-full border-2 py-1.5 pr-4 pl-1.5 font-bold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2">
+                            <a href="#{{ $stepId }}" class="border-line hover:border-signal focus-visible:outline-ink bg-card/60 flex items-center gap-2 rounded-full border-2 py-1 pr-3.5 pl-1 text-sm font-bold sm:py-1.5 sm:pr-4 sm:pl-1.5 sm:text-base transition-colors focus-visible:outline-2 focus-visible:outline-offset-2">
                                 <span class="bg-signal font-rune grid size-7 place-items-center rounded-full text-xs font-bold text-[#1d1408]">{{ $numerals[$loop->index] ?? $loop->iteration }}</span>
                                 {{ $stepLabel }}
                             </a>
@@ -68,7 +68,7 @@
             </nav>
         </header>
 
-        <div class="flex flex-col gap-20">
+        <div class="flex flex-col gap-14 sm:gap-20">
             {{ $slot }}
         </div>
 

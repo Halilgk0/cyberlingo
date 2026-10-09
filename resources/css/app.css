@@ -1,0 +1,551 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+
+@theme {
+    --font-sans: 'Atkinson Hyperlegible', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+    /* Gothic display letters for titles; Roman inscription capitals for labels and numerals. */
+    --font-display: 'Grenze Gotisch', Georgia, serif;
+    --font-rune: 'Cinzel', Georgia, serif;
+}
+
+/*
+ * One dark theme: a torch-lit keep with a faint glow of cyber runes. Components use
+ * these tokens (`bg-paper`, `text-ink`, `border-line`…) instead of raw colors.
+ */
+@theme inline {
+    --color-paper: var(--paper);
+    --color-card: var(--card);
+    --color-ink: var(--ink);
+    --color-muted: var(--muted);
+    --color-line: var(--line);
+    --color-signal: var(--signal);
+    --color-ember: var(--ember);
+    --color-rune: var(--rune);
+    --color-safe: var(--safe);
+    --color-safe-deep: var(--safe-deep);
+    --color-alert: var(--alert);
+}
+
+:root {
+    color-scheme: dark;
+    --paper: #0c0b0f;
+    --card: #17151c;
+    --ink: #ece4d6;
+    --muted: #a09584;
+    --line: #2e2933;
+    --signal: #e8b04a;
+    --ember: #ff8a3d;
+    --rune: #5ee6d0;
+    --safe: #3ddc84;
+    --safe-deep: #22924f;
+    --alert: #e5484d;
+}
+
+@layer base {
+    /*
+     * Stone-grain noise, a torchlight glow from above and a fading grid of cyber runes.
+     * All of it is painted on fixed layers so long pages do not stretch the texture.
+     */
+    body {
+        background-color: var(--paper);
+        background-image:
+            url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.07'/%3E%3C/svg%3E"),
+            radial-gradient(ellipse 80% 50% at 50% -10%, rgb(232 176 74 / 0.1), transparent 70%),
+            radial-gradient(ellipse 120% 80% at 50% 120%, rgb(0 0 0 / 0.6), transparent 60%);
+        background-attachment: fixed;
+    }
+
+    body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+        background-image:
+            linear-gradient(rgb(94 230 208 / 0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgb(94 230 208 / 0.05) 1px, transparent 1px);
+        background-size: 44px 44px;
+        mask-image: linear-gradient(to bottom, #000 0%, transparent 55%);
+    }
+
+    ::selection {
+        background: rgb(232 176 74 / 0.35);
+    }
+}
+
+@layer components {
+    /* Chunky buttons that sink when pressed, like game controls; the green glows like a lit rune. */
+    .btn-primary {
+        @apply focus-visible:outline-safe inline-flex items-center justify-center gap-2 rounded-2xl bg-linear-to-b from-[#56e899] to-[#2fc06e] px-5 py-3 font-extrabold text-[#04210f] shadow-[0_4px_0_var(--safe-deep),inset_0_1px_0_rgb(255_255_255/0.35)] transition-[filter,translate,box-shadow] duration-100 focus-visible:outline-2 focus-visible:outline-offset-4 not-disabled:hover:brightness-110 not-disabled:active:translate-y-1 not-disabled:active:shadow-none disabled:cursor-not-allowed disabled:opacity-35;
+    }
+
+    .btn-secondary {
+        @apply border-line text-ink bg-card hover:bg-ink/5 focus-visible:outline-ink inline-flex items-center justify-center gap-2 rounded-2xl border-2 px-4 py-2 font-bold shadow-[0_3px_0_#1c1920] transition-[background-color,translate,box-shadow] duration-100 focus-visible:outline-2 focus-visible:outline-offset-4 active:translate-y-[3px] active:shadow-none;
+    }
+
+    /* Text inputs on forms such as login and profile. */
+    .field {
+        @apply border-line bg-paper focus:border-signal placeholder:text-muted/60 w-full rounded-2xl border-2 px-4 py-3 text-lg transition-colors focus:outline-none;
+    }
+
+    /* Small caps in Roman inscription letters: chapter numbers, eyebrows, badges. */
+    .rune-label {
+        @apply font-rune text-sm font-bold tracking-[0.14em] uppercase;
+    }
+
+    /* An iron-bound panel: four rivets in the corners and a faint gold edge. */
+    .riveted {
+        background-image:
+            radial-gradient(circle at 12px 12px, #4a4250 2px, #2a252f 3px, transparent 3.5px),
+            radial-gradient(circle at calc(100% - 12px) 12px, #4a4250 2px, #2a252f 3px, transparent 3.5px),
+            radial-gradient(circle at 12px calc(100% - 12px), #4a4250 2px, #2a252f 3px, transparent 3.5px),
+            radial-gradient(circle at calc(100% - 12px) calc(100% - 12px), #4a4250 2px, #2a252f 3px, transparent 3.5px);
+        box-shadow:
+            inset 0 0 0 1px rgb(232 176 74 / 0.07),
+            0 18px 40px -24px rgb(0 0 0 / 0.9);
+    }
+
+    /* Long-form reading text inside a mission's lesson. */
+    .lesson {
+        @apply max-w-[65ch] text-lg leading-relaxed;
+
+        & > :where(* + *) {
+            @apply mt-4;
+        }
+
+        & :where(h3) {
+            @apply font-display text-signal pt-4 text-3xl leading-tight font-extrabold;
+        }
+
+        & :where(ul) {
+            @apply flex list-disc flex-col gap-2 pl-6;
+        }
+
+        & :where(ol) {
+            @apply flex list-decimal flex-col gap-2 pl-6;
+        }
+
+        & :where(li)::marker {
+            @apply text-signal/70 font-bold;
+        }
+
+        & :where(strong) {
+            @apply text-ink;
+        }
+    }
+
+    /* The wax-seal stamp pressed onto a completed mission. */
+    .stamp {
+        @apply font-rune text-safe border-safe inline-block rounded-md border-[3px] px-3 py-1 text-base font-bold tracking-widest uppercase;
+        rotate: -9deg;
+        mask-image: radial-gradient(circle at 30% 40%, #000 60%, rgb(0 0 0 / 0.75) 100%);
+    }
+
+    /* A console showing what an attacker sees; darker than the page so it reads as a separate screen. */
+    .terminal {
+        @apply border-line rounded-[1.25rem] border bg-[#050507] p-5 font-mono text-sm leading-relaxed text-[#d7e0ec] shadow-[inset_0_0_40px_rgb(94_230_208/0.04)] sm:p-6;
+    }
+
+    /* Clue highlighting inside the practice inbox, shown once an email is answered. */
+    [data-revealed] [data-clue] {
+        @apply bg-signal/35 rounded-sm box-decoration-clone px-0.5;
+    }
+
+    /*
+     * A heater shield, the shape of every mission on the learning path. The face is
+     * clipped to the outline; the wrapper's drop shadows draw the raised edge and glow.
+     */
+    .shield-face {
+        width: 76px;
+        height: 86px;
+        clip-path: path('M38 1 L75 11 V41 C75 63 59 78 38 85 C17 78 1 63 1 41 V11 Z');
+    }
+
+    .shield-face-large {
+        width: 92px;
+        height: 104px;
+        clip-path: path('M46 1 L91 13 V50 C91 76 72 94 46 103 C20 94 1 76 1 50 V13 Z');
+    }
+
+    .shield-node {
+        filter: drop-shadow(0 6px 0 var(--node-deep));
+        transition:
+            filter 100ms,
+            translate 100ms;
+
+        &:has(a:active) {
+            filter: drop-shadow(0 1px 0 var(--node-deep));
+            translate: 0 5px;
+        }
+    }
+
+    /* The speaker button shows sound waves when sound is on and a cross when it is off. */
+    [data-sound-toggle][aria-pressed='true'] .sound-mute,
+    [data-sound-toggle][aria-pressed='false'] .sound-waves {
+        display: none;
+    }
+
+    /* The castle in the defense lesson: the chosen layer glows, the others step back. */
+    .castle-art {
+        & [data-castle-part] {
+            cursor: pointer;
+            transition:
+                opacity 250ms,
+                filter 250ms;
+        }
+
+        &[data-focus] [data-castle-part]:not([data-active]) {
+            opacity: 0.35;
+        }
+
+        & [data-castle-part][data-active] {
+            filter: drop-shadow(0 0 7px rgb(94 230 208 / 0.9));
+        }
+    }
+
+    /* A hanging banner with a pointed tail, for the chapters of the path. */
+    .banner {
+        clip-path: polygon(0 0, 100% 0, 100% calc(100% - 22px), 50% 100%, 0 calc(100% - 22px));
+    }
+
+    /*
+     * Bit, the mascot. Its mood is set with `data-mood` on the svg: happy, wave,
+     * cheer, sad or think. Each mood swaps the mouth and poses the arms.
+     */
+    .mascot {
+        overflow: visible;
+
+        & .mascot-mouth {
+            display: none;
+        }
+
+        &:is([data-mood='happy'], [data-mood='wave']) .mascot-mouth-happy,
+        &[data-mood='cheer'] .mascot-mouth-cheer,
+        &[data-mood='sad'] .mascot-mouth-sad,
+        &[data-mood='think'] .mascot-mouth-think {
+            display: inline;
+        }
+
+        & .mascot-arm {
+            transform-box: fill-box;
+            transition: rotate 300ms ease;
+        }
+
+        & .mascot-arm-left {
+            transform-origin: 100% 0;
+        }
+
+        & .mascot-arm-right {
+            transform-origin: 0 0;
+        }
+
+        & .mascot-cape {
+            transform-box: fill-box;
+            transform-origin: 50% 0;
+        }
+
+        &[data-mood='cheer'] .mascot-arm-left {
+            rotate: 135deg;
+        }
+
+        &[data-mood='cheer'] .mascot-arm-right,
+        &[data-mood='wave'] .mascot-arm-right {
+            rotate: -135deg;
+        }
+
+        & .mascot-pupil {
+            transition: translate 250ms ease;
+        }
+
+        &[data-mood='think'] .mascot-pupil {
+            translate: 2px -3px;
+        }
+
+        &[data-mood='sad'] .mascot-pupil {
+            translate: 0 2.5px;
+        }
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .stamp-in {
+        animation: stamp-in 380ms cubic-bezier(0.2, 0.9, 0.3, 1.3) both;
+    }
+
+    @keyframes stamp-in {
+        from {
+            opacity: 0;
+            scale: 1.8;
+        }
+    }
+
+    /* Messages arriving in a practice chat. */
+    [data-chat-log] > * {
+        animation: bubble-in 260ms ease-out both;
+    }
+
+    @keyframes bubble-in {
+        from {
+            opacity: 0;
+            translate: 0 0.5rem;
+        }
+    }
+
+    /* Every answer button across the missions shakes when wrong and pops when right. */
+    [data-state='wrong'] {
+        animation: shake 380ms ease-in-out;
+    }
+
+    [data-state='correct'] {
+        animation: pop 320ms cubic-bezier(0.3, 1.6, 0.5, 1);
+    }
+
+    @keyframes shake {
+        20%,
+        60% {
+            translate: -5px 0;
+        }
+
+        40%,
+        80% {
+            translate: 5px 0;
+        }
+    }
+
+    @keyframes pop {
+        45% {
+            scale: 1.05;
+        }
+    }
+
+    /* Sections slide in as they scroll into view; app.js marks them visible. */
+    .js [data-reveal] {
+        opacity: 0;
+        translate: 0 1.25rem;
+        transition:
+            opacity 600ms ease,
+            translate 600ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .js [data-reveal][data-visible] {
+        opacity: 1;
+        translate: 0 0;
+    }
+
+    /* Path nodes pop in one after another; each node sets its own delay. */
+    .node-pop {
+        animation: node-pop 520ms cubic-bezier(0.3, 1.6, 0.5, 1) both;
+    }
+
+    @keyframes node-pop {
+        from {
+            opacity: 0;
+            scale: 0.4;
+        }
+    }
+
+    /* The next mission on the path glows like a rune waiting to be touched. */
+    .node-glow {
+        animation: node-glow 2s ease-in-out infinite;
+    }
+
+    @keyframes node-glow {
+        50% {
+            filter: drop-shadow(0 6px 0 var(--node-deep)) drop-shadow(0 0 18px var(--accent));
+        }
+    }
+
+    .float {
+        animation: float 1.8s ease-in-out infinite;
+    }
+
+    @keyframes float {
+        50% {
+            translate: 0 -5px;
+        }
+    }
+
+    .flame {
+        transform-origin: 50% 100%;
+        animation: flame 1.3s ease-in-out infinite;
+    }
+
+    @keyframes flame {
+        50% {
+            scale: 1.08 0.94;
+            rotate: -4deg;
+        }
+    }
+
+    /* A torch's uneven flicker, for warm glows behind the mascot and the castle. */
+    .torch {
+        animation: torch 3.2s ease-in-out infinite;
+    }
+
+    @keyframes torch {
+        0%,
+        100% {
+            opacity: 0.85;
+            scale: 1;
+        }
+
+        20% {
+            opacity: 1;
+            scale: 1.04;
+        }
+
+        45% {
+            opacity: 0.7;
+            scale: 0.98;
+        }
+
+        70% {
+            opacity: 0.95;
+            scale: 1.02;
+        }
+    }
+
+    .toast-in {
+        animation: toast-in 450ms cubic-bezier(0.2, 1.3, 0.4, 1) both;
+    }
+
+    @keyframes toast-in {
+        from {
+            opacity: 0;
+            translate: 0 -1rem;
+        }
+    }
+
+    /* Longhand properties, so an `[animation-delay:…]` utility can stagger several of these. */
+    .rise-in {
+        animation-name: rise-in;
+        animation-duration: 500ms;
+        animation-timing-function: cubic-bezier(0.2, 1.2, 0.4, 1);
+        animation-fill-mode: both;
+    }
+
+    @keyframes rise-in {
+        from {
+            opacity: 0;
+            translate: 0 2rem;
+            scale: 0.96;
+        }
+    }
+
+    .confetti-piece {
+        position: absolute;
+        top: -1rem;
+        width: 0.6rem;
+        height: 0.9rem;
+        border-radius: 2px;
+        animation: confetti-fall var(--fall-duration) cubic-bezier(0.25, 0.6, 0.4, 1) var(--fall-delay) forwards;
+    }
+
+    @keyframes confetti-fall {
+        to {
+            translate: var(--drift) 110vh;
+            rotate: var(--spin);
+        }
+    }
+
+    .mascot {
+        & .mascot-figure {
+            animation: mascot-bob 2.8s ease-in-out infinite;
+        }
+
+        & .mascot-cape {
+            animation: mascot-cape 3.4s ease-in-out infinite;
+        }
+
+        & .mascot-eyes {
+            transform-box: fill-box;
+            transform-origin: center;
+            animation: mascot-blink 5s infinite;
+        }
+
+        & .mascot-gem {
+            animation: mascot-glow 1.8s ease-in-out infinite;
+        }
+
+        &[data-mood='cheer'] .mascot-figure {
+            animation: mascot-jump 620ms cubic-bezier(0.3, 0.7, 0.4, 1) 3;
+        }
+
+        &[data-mood='wave'] .mascot-arm-right {
+            animation: mascot-wave 900ms ease-in-out infinite;
+        }
+
+        &[data-mood='sad'] .mascot-figure {
+            animation: mascot-shake 450ms ease-in-out;
+        }
+    }
+
+    @keyframes mascot-bob {
+        50% {
+            translate: 0 -3px;
+        }
+    }
+
+    @keyframes mascot-cape {
+        50% {
+            transform: skewX(3deg);
+        }
+    }
+
+    @keyframes mascot-blink {
+        0%,
+        93%,
+        100% {
+            scale: 1 1;
+        }
+
+        96% {
+            scale: 1 0.1;
+        }
+    }
+
+    @keyframes mascot-jump {
+        0%,
+        100% {
+            translate: 0 0;
+        }
+
+        40% {
+            translate: 0 -14px;
+        }
+
+        75% {
+            translate: 0 2px;
+        }
+    }
+
+    @keyframes mascot-wave {
+        0%,
+        100% {
+            rotate: -140deg;
+        }
+
+        50% {
+            rotate: -105deg;
+        }
+    }
+
+    @keyframes mascot-shake {
+        25% {
+            translate: -4px 0;
+        }
+
+        75% {
+            translate: 4px 0;
+        }
+    }
+
+    @keyframes mascot-glow {
+        50% {
+            opacity: 0.55;
+        }
+    }
+}

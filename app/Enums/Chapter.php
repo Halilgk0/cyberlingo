@@ -14,6 +14,7 @@ enum Chapter: string
     case DataAndConnections = 'veri-ve-baglanti';
     case Crisis = 'kriz-aninda';
     case EthicalHacking = 'etik-hack';
+    case Defense = 'savunma-hatti';
 
     /**
      * Position of the chapter on the learning path, starting at 1.
@@ -28,7 +29,7 @@ enum Chapter: string
      */
     public function numeral(): string
     {
-        return ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII'][$this->number() - 1];
+        return ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII'][$this->number() - 1];
     }
 
     public function title(): string
@@ -41,6 +42,7 @@ enum Chapter: string
             self::DataAndConnections => 'Verini ve bağlantını koru',
             self::Crisis => 'Kriz anında',
             self::EthicalHacking => 'Etik hack',
+            self::Defense => 'Savunma hattı',
         };
     }
 
@@ -54,6 +56,7 @@ enum Chapter: string
             self::DataAndConnections => 'Şifrelemeyi, halka açık ağları, zararlı yazılımları ve yedeklemeyi öğren.',
             self::Crisis => 'Bir şeyler ters gittiğinde paniğe kapılmadan, doğru sırayla hareket et.',
             self::EthicalHacking => 'Bir saldırgan gibi düşünmeyi, ama yalnızca izinle ve savunmak için kullanmayı öğren.',
+            self::Defense => 'İnternetin nasıl çalıştığını, parolaların nasıl saklandığını ve saldırıların kayıtlarda nasıl iz bıraktığını bir savunucu gözüyle öğren.',
         };
     }
 
@@ -70,6 +73,7 @@ enum Chapter: string
             self::DataAndConnections => '#a98bff',
             self::Crisis => '#ff8a3d',
             self::EthicalHacking => '#5ee6d0',
+            self::Defense => '#c7d2e0',
         };
     }
 
@@ -86,6 +90,7 @@ enum Chapter: string
             self::DataAndConnections => 'icons.cipher',
             self::Crisis => 'icons.siren',
             self::EthicalHacking => 'icons.hat',
+            self::Defense => 'icons.tower',
         };
     }
 
@@ -102,6 +107,7 @@ enum Chapter: string
             self::DataAndConnections => '1988’de yayılan Morris solucanı, o zamanlar internete bağlı bilgisayarların yaklaşık onda birini yavaşlattı ya da çökertti. İlk büyük internet saldırılarından biri kabul edilir.',
             self::Crisis => 'Bizans İmparatorluğu’nun 9. yüzyıldaki işaret ateşleri, Toros Dağları’ndaki sınırda görülen bir akını yaklaşık 700 kilometre ötedeki İstanbul’a bir saat kadar içinde haber verirdi. Krizde hız da sıra da hayat kurtarır.',
             self::EthicalHacking => '1970’lerde ABD Hava Kuvvetleri, “kaplan takımı” denen uzman ekiplere kendi bilgisayar sistemlerine izinli saldırılar yaptırarak açıkları buldurdu. Bugünkü sızma testlerinin ataları bu ekiplerdir.',
+            self::Defense => 'Roma’nın Hadrian Duvarı’nda her Roma milinde küçük bir kale, aralarında da iki gözetleme kulesi vardı. Duvar kadar onu izleyen gözler de önemliydi; bugün o gözlerin adı kayıtlar ve güvenlik ekipleri.',
         };
     }
 

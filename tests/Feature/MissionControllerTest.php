@@ -38,6 +38,10 @@ describe('index', function () {
                 'Etik hack: izinle savunmak',
                 'Açık bulursan: sorumlu bildirim',
                 'Kodu bir savunucu gibi oku',
+                'Savunma hattı',
+                'Bir isteğin yolculuğu',
+                'Parolalar nasıl saklanır: özet ve tuz',
+                'Kayıtlardan saldırıyı yakala',
                 'Son sınav: Kale kuşatması',
                 'Siber Kale',
             ]);
@@ -104,6 +108,9 @@ describe('show', function () {
         'ethical hacking' => ['etik-hack', 'Etik hack: izinle savunmak', 'missions.ethical-hacking'],
         'responsible disclosure' => ['sorumlu-bildirim', 'Açık bulursan: sorumlu bildirim', 'missions.responsible-disclosure'],
         'secure code' => ['guvenli-kod', 'Kodu bir savunucu gibi oku', 'missions.secure-code'],
+        'request journey' => ['istegin-yolculugu', 'Bir isteğin yolculuğu', 'missions.request-journey'],
+        'password storage' => ['ozet-ve-tuz', 'Parolalar nasıl saklanır: özet ve tuz', 'missions.password-storage'],
+        'log hunt' => ['kayit-avcisi', 'Kayıtlardan saldırıyı yakala', 'missions.log-hunt'],
         'final siege' => ['son-sinav-kale-kusatmasi', 'Son sınav: Kale kuşatması', 'missions.final-siege'],
     ]);
 
@@ -285,7 +292,29 @@ describe('exercise content', function () {
         'account recovery' => [Mission::AccountRecovery, 8, 2],
         'lost phone' => [Mission::LostPhone, 5, 2],
         'responsible disclosure' => [Mission::ResponsibleDisclosure, 5, 3],
+        'request journey' => [Mission::RequestJourney, 6, 2],
     ]);
+
+    it('renders the hash lab with a text to change and two users who share a password', function () {
+        $response = $this->get(route('missions.show', Mission::PasswordStorage));
+
+        $response->assertOk()
+            ->assertSee('data-hash-input', false)
+            ->assertSee('data-password="Kale2024!"', false);
+        expect(substr_count($response->getContent(), 'data-salt-user'))->toBe(2);
+    });
+
+    it('renders the log hunt with an explanation for every trace and every ordinary line', function () {
+        $content = $this->get(route('missions.show', Mission::LogHunt))->getContent();
+
+        preg_match_all('/data-evidence="([^"]+)"/', $content, $evidence);
+        preg_match_all('/data-evidence-why="([^"]+)"/', $content, $explained);
+        $ordinaryLines = preg_match_all('/data-log-line[\s>]/', $content) - count($evidence[1]);
+
+        expect(array_values(array_unique($evidence[1])))->toBe(['tahmin', 'giris', 'yonlendirme', 'kilit'])
+            ->and($explained[1])->toBe(['tahmin', 'giris', 'yonlendirme', 'kilit'])
+            ->and(substr_count($content, 'data-log-why'))->toBe($ordinaryLines);
+    });
 
     it('renders the hat sorter with every scenario filed under an existing hat', function () {
         $response = $this->get(route('missions.show', Mission::EthicalHacking));

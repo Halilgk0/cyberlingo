@@ -18,6 +18,7 @@ enum Achievement: string
     case DataDone = 'veri-kalkani';
     case CrisisDone = 'sogukkanli';
     case EthicsDone = 'beyaz-sapka';
+    case DefenseDone = 'gozcu';
     case DragonSlayer = 'ejderha-avcisi';
     case Practiced = 'pratik-yapan';
     case ThreeDayStreak = 'uc-gunluk-seri';
@@ -37,6 +38,7 @@ enum Achievement: string
             self::DataDone => 'Veri kalkanı',
             self::CrisisDone => 'Soğukkanlı',
             self::EthicsDone => 'Beyaz şapka',
+            self::DefenseDone => 'Gözcü',
             self::DragonSlayer => 'Ejderha avcısı',
             self::Practiced => 'Pratik yapan',
             self::ThreeDayStreak => 'Isınma turu',
@@ -58,6 +60,7 @@ enum Achievement: string
             self::DataDone => '“Verini ve bağlantını koru” bölümünü bitir.',
             self::CrisisDone => '“Kriz anında” bölümünü bitir.',
             self::EthicsDone => '“Etik hack” bölümünü bitir.',
+            self::DefenseDone => '“Savunma hattı” bölümünü bitir.',
             self::DragonSlayer => 'Bir ejderha sınavını geç.',
             self::Practiced => 'Bitirdiğin bir görevi tekrar oyna.',
             self::ThreeDayStreak => '3 gün üst üste görev yap.',
@@ -79,6 +82,7 @@ enum Achievement: string
             self::DataDone => '🛡️',
             self::CrisisDone => '🚨',
             self::EthicsDone => '🎩',
+            self::DefenseDone => '🔭',
             self::DragonSlayer => '🐉',
             self::Practiced => '🔁',
             self::ThreeDayStreak => '🔥',
@@ -105,6 +109,7 @@ enum Achievement: string
             self::DataDone => $completedChapter(Chapter::DataAndConnections),
             self::CrisisDone => $completedChapter(Chapter::Crisis),
             self::EthicsDone => $completedChapter(Chapter::EthicalHacking),
+            self::DefenseDone => $completedChapter(Chapter::Defense),
             self::DragonSlayer => collect($user->completedMissions())->contains(fn (Mission $mission) => $mission->kind() === MissionKind::Challenge),
             self::Practiced => $user->replayCount() > 0,
             self::ThreeDayStreak => $user->longestStreak() >= 3,

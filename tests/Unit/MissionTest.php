@@ -12,7 +12,8 @@ test('missions are numbered by their position on the learning path', function ()
         ->and(Mission::Backups->number())->toBe(16)
         ->and(Mission::DataBreach->number())->toBe(17)
         ->and(Mission::EthicalHacking->number())->toBe(20)
-        ->and(Mission::FinalSiege->number())->toBe(23);
+        ->and(Mission::RequestJourney->number())->toBe(23)
+        ->and(Mission::FinalSiege->number())->toBe(26);
 });
 
 test('each mission leads to the next one on the learning path', function () {
@@ -33,7 +34,8 @@ test('missions belong to the chapter that teaches their topic', function () {
         ->and(Mission::Backups->chapter())->toBe(Chapter::DataAndConnections)
         ->and(Mission::LostPhone->chapter())->toBe(Chapter::Crisis)
         ->and(Mission::SecureCode->chapter())->toBe(Chapter::EthicalHacking)
-        ->and(Mission::FinalSiege->chapter())->toBe(Chapter::EthicalHacking);
+        ->and(Mission::LogHunt->chapter())->toBe(Chapter::Defense)
+        ->and(Mission::FinalSiege->chapter())->toBe(Chapter::Defense);
 });
 
 test('interludes are short lessons and the dragon trial pays a bonus', function () {

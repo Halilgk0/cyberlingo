@@ -71,6 +71,14 @@ describe('achievements', function () {
             ->and($done->earnedAchievements())->toContain(Achievement::CrisisDone);
     });
 
+    it('awards the ethical hacking badge once every mission of its chapter is completed', function () {
+        $almostDone = User::factory()->completed(...array_slice(Chapter::EthicalHacking->missions(), 0, -1))->create();
+        $done = User::factory()->completed(...Chapter::EthicalHacking->missions())->create();
+
+        expect($almostDone->earnedAchievements())->not->toContain(Achievement::EthicsDone)
+            ->and($done->earnedAchievements())->toContain(Achievement::EthicsDone);
+    });
+
     it('awards the checklist badge only once every item is ticked', function () {
         $almostDone = User::factory()->create(['checklist' => array_slice(ChecklistItem::cases(), 0, -1)]);
         $done = User::factory()->create(['checklist' => ChecklistItem::cases()]);

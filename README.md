@@ -27,12 +27,14 @@ görev bitince seninle birlikte kutlar.
 
 ## Öne çıkanlar
 
-- **20 görev, 6 bölüm.** Normal dersler, kısa “ara bilgi” dersleri ve bölüm sonlarında geçme notu isteyen ejderha sınavları.
+- **23 görev, 7 bölüm.** Normal dersler, kısa “ara bilgi” dersleri ve bölüm sonlarında geçme notu isteyen ejderha sınavları.
 - **Gerçekçi alıştırmalar.** Saniyede bir değişen kod üreten bir doğrulama uygulaması, saldırganın ekranından kafe Wi-Fi’ı trafiği,
   sahte bir mağaza sayfasında tehlike işareti avı, Sezar çarkıyla şifre kırma, fidye yazılımı simülasyonu ve daha fazlası.
 - **Kriz anında.** Veri sızıntısı raporu okuma, ele geçirilen hesabı geri alma ve kaybolan telefon için adım adım kriz planları;
   aynı anda yapılabilecek adımlar istenen sırada seçilebilir, tuzak adımlar açıklamasıyla elenir.
-- **Oyunlaştırma.** XP, günlük seri, Çırak’tan Siber Kahraman’a 6 seviye, 14 rozet, haftalık sıralama ve yolun sonunda yazdırılabilir
+- **Etik hack.** Beyaz, gri ve siyah şapkayı ayıran çizgi (izin ve yasalar), bir açığı sorumlu bildirme ve kısa kod parçalarında
+  açığı bulup doğru düzeltmeyi seçtiren savunmacı bir kod incelemesi. Saldırı tekniği öğretilmez.
+- **Oyunlaştırma.** XP, günlük seri, Çırak’tan Siber Kahraman’a 6 seviye, 15 rozet, haftalık sıralama ve yolun sonunda yazdırılabilir
   bir **Siber Şövalye Beratı**.
 - **Kale kontrol listesi.** Öğrendiklerini gerçek hayatta uyguladıkça işaretlediğin 12 maddelik kişisel güvenlik listesi. Her madde onu
   anlatan göreve bağlı, işaretler hesabına kaydedilir ve listeyi bitirene rozet verilir.
@@ -40,7 +42,7 @@ görev bitince seninle birlikte kutlar.
   ilerleme kayıt olunca hesaba aktarılır.
 - **Canlı bir arayüz.** Animasyonlu maskot, konfetili kutlama ekranı, ses efektleri, kaydırdıkça beliren bölümler. Cihazında
   “hareketi azalt” ayarı açıksa animasyonlar kapanır.
-- **Sözlük.** 52 terimin kısa açıklaması; her terim onu anlatan göreve bağlı ve Türkçe karakter yazmadan da aranabiliyor.
+- **Sözlük.** 65 terimin kısa açıklaması; her terim onu anlatan göreve bağlı ve Türkçe karakter yazmadan da aranabiliyor.
 - **Telefona uygun.** Telefonda alt sekme çubuğu, alt alta dizilen düzen ve dokunmaya uygun alıştırmalar.
 
 ## Ekran görüntüleri
@@ -81,7 +83,10 @@ görev bitince seninle birlikte kutlar.
 | **VI · Kriz anında** | 17 | Verilerin sızdı: şimdi ne olacak? | Ders | Sızıntı raporunu oku, her sızıntıya doğru önlemi seç |
 | | 18 | Hesabın ele geçirildi: kriz planı | Ders | Hesabı geri almak için adımları doğru sırayla diz, tuzaklardan kaçın |
 | | 19 | Telefonun kayboldu ya da çalındı | Ara bilgi | Kaybolan telefonun ilk saatini planla |
-| | 20 | Son sınav: Kale kuşatması | Ejderha sınavı | Bütün konulardan 12 soru, tek hak; geçmek için en az 10 doğru |
+| **VII · Etik hack** | 20 | Etik hack: izinle savunmak | Ders | Altı olayda beyaz, gri ve siyah şapkayı ayır |
+| | 21 | Açık bulursan: sorumlu bildirim | Ders | Rastlanan bir açığı doğru sırayla bildir, üç tuzaktan kaçın |
+| | 22 | Kodu bir savunucu gibi oku | Ders | Beş kısa kod parçasında açığı ve doğru düzeltmeyi bul |
+| | 23 | Son sınav: Kale kuşatması | Ejderha sınavı | Bütün konulardan 12 soru, tek hak; geçmek için en az 10 doğru |
 
 ## Kurulum
 
@@ -123,7 +128,7 @@ ekler. Bu hesap yalnızca bilgisayarındaki geliştirme ortamı içindir.
 php artisan test
 ```
 
-Pest ile yazılmış 114 test; kayıt ve giriş, görevlerin sırayla açılması, XP ve seri hesapları, rozetler, sıralama ve beratın yanında
+Pest ile yazılmış 126 test; kayıt ve giriş, görevlerin sırayla açılması, XP ve seri hesapları, rozetler, sıralama ve beratın yanında
 kontrol listesinin ve alıştırma içeriklerinin doğru kurulduğunu da denetler (örneğin her sorunun tek bir doğru cevabı olması). Kod stili için
 `vendor/bin/pint` kullanılır.
 

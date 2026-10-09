@@ -29,6 +29,9 @@ enum Mission: string
     case DataBreach = 'veri-sizintisi';
     case AccountRecovery = 'hesabin-ele-gecirildi';
     case LostPhone = 'telefonun-kayboldu';
+    case EthicalHacking = 'etik-hack';
+    case ResponsibleDisclosure = 'sorumlu-bildirim';
+    case SecureCode = 'guvenli-kod';
     case FinalSiege = 'son-sinav-kale-kusatmasi';
 
     /**
@@ -86,7 +89,8 @@ enum Mission: string
             self::ReadingLinks, self::PhishingEmail, self::ScamMessages, self::FakeShop, self::PhishingDragon => Chapter::Traps,
             self::Oversharing, self::AppPermissions => Chapter::Privacy,
             self::Encryption, self::PublicWifi, self::Malware, self::Backups => Chapter::DataAndConnections,
-            self::DataBreach, self::AccountRecovery, self::LostPhone, self::FinalSiege => Chapter::Crisis,
+            self::DataBreach, self::AccountRecovery, self::LostPhone => Chapter::Crisis,
+            self::EthicalHacking, self::ResponsibleDisclosure, self::SecureCode, self::FinalSiege => Chapter::EthicalHacking,
         };
     }
 
@@ -112,6 +116,9 @@ enum Mission: string
             self::DataBreach => 'Verilerin sızdı: şimdi ne olacak?',
             self::AccountRecovery => 'Hesabın ele geçirildi: kriz planı',
             self::LostPhone => 'Telefonun kayboldu ya da çalındı',
+            self::EthicalHacking => 'Etik hack: izinle savunmak',
+            self::ResponsibleDisclosure => 'Açık bulursan: sorumlu bildirim',
+            self::SecureCode => 'Kodu bir savunucu gibi oku',
             self::FinalSiege => 'Son sınav: Kale kuşatması',
         };
     }
@@ -138,6 +145,9 @@ enum Mission: string
             self::DataBreach => 'Bir şirketin verileri sızdığında senin için neyin değiştiğini öğren, sızıntı raporunu oku ve her sızıntıya doğru önlemi seç.',
             self::AccountRecovery => 'Bir hesabın ele geçirildiğini nasıl anlayacağını öğren, sonra hesabını geri almak için adım adım bir kriz planı kur.',
             self::LostPhone => 'Telefonun kaybolmadan önce yapman gereken hazırlıkları ve kaybolduğu ilk saatte izlemen gereken sırayı öğren.',
+            self::EthicalHacking => 'Beyaz, gri ve siyah şapkalı hackerları ayıran çizgiyi öğren: izin. Sonra altı olayda kimin hangi şapkayı taktığına karar ver.',
+            self::ResponsibleDisclosure => 'Bir güvenlik açığına rastladığında ne yapman, neyi asla yapmaman gerektiğini öğren ve adım adım bir bildirim planı kur.',
+            self::SecureCode => 'Güvenli kodlamanın üç kuralını öğren, sonra beş kısa kod parçasındaki açığı bul ve doğru düzeltmeyi seç.',
             self::FinalSiege => 'Bütün yolun son sınavı: on iki soruluk bir kuşatma, her soruya tek hak. Kaleyi savunmak için en az onunu doğru bil.',
         };
     }
@@ -148,8 +158,9 @@ enum Mission: string
             self::CastleDefense, self::PasswordVault, self::LostPhone => 4,
             self::SecurityBasics, self::StrongPassword => 5,
             self::ReadingLinks, self::ScamMessages => 6,
-            self::PhishingEmail, self::FakeShop, self::Oversharing, self::AppPermissions, self::PublicWifi, self::Malware, self::DataBreach => 7,
-            self::TwoFactor, self::PhishingDragon, self::Encryption, self::Backups, self::AccountRecovery => 8,
+            self::PhishingEmail, self::FakeShop, self::Oversharing, self::AppPermissions, self::PublicWifi, self::Malware, self::DataBreach,
+            self::EthicalHacking, self::ResponsibleDisclosure => 7,
+            self::TwoFactor, self::PhishingDragon, self::Encryption, self::Backups, self::AccountRecovery, self::SecureCode => 8,
             self::FinalSiege => 12,
         };
     }
@@ -179,6 +190,9 @@ enum Mission: string
             self::DataBreach => 'icons.droplet',
             self::AccountRecovery => 'icons.siren',
             self::LostPhone => 'icons.locate',
+            self::EthicalHacking => 'icons.hat',
+            self::ResponsibleDisclosure => 'icons.report',
+            self::SecureCode => 'icons.code',
             self::FinalSiege => 'icons.shield',
         };
     }
@@ -205,6 +219,9 @@ enum Mission: string
             self::DataBreach => 'missions.data-breach',
             self::AccountRecovery => 'missions.account-recovery',
             self::LostPhone => 'missions.lost-phone',
+            self::EthicalHacking => 'missions.ethical-hacking',
+            self::ResponsibleDisclosure => 'missions.responsible-disclosure',
+            self::SecureCode => 'missions.secure-code',
             self::FinalSiege => 'missions.final-siege',
         };
     }

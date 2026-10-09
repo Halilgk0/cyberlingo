@@ -20,5 +20,6 @@ test('chapters are numbered by their position on the learning path, also in Roma
         ->and(Chapter::DataAndConnections->number())->toBe(5)
         ->and(Chapter::Traps->numeral())->toBe('III')
         ->and(Chapter::DataAndConnections->numeral())->toBe('V')
-        ->and(Chapter::Crisis->numeral())->toBe('VI');
+        ->and(Chapter::Crisis->numeral())->toBe('VI')
+        ->and(Chapter::EthicalHacking->numeral())->toBe('VII');
 });

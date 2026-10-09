@@ -149,6 +149,11 @@
         @apply border-line rounded-[1.25rem] border bg-[#050507] p-5 font-mono text-sm leading-relaxed text-[#d7e0ec] shadow-[inset_0_0_40px_rgb(94_230_208/0.04)] sm:p-6;
     }
 
+    /* Short code inside running text, such as a function name in an explanation. Long lines wrap on phones. */
+    :where(.lesson, [data-explanation], aside, [data-plan-item-why]) :where(code) {
+        @apply bg-ink/10 rounded px-1 py-0.5 font-mono text-[0.9em] [overflow-wrap:anywhere];
+    }
+
     /* Clue highlighting inside the practice inbox, shown once an email is answered. */
     [data-revealed] [data-clue] {
         @apply bg-signal/35 rounded-sm box-decoration-clone px-0.5;

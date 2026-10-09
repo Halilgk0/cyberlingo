@@ -34,6 +34,10 @@ describe('index', function () {
                 'Verilerin sızdı: şimdi ne olacak?',
                 'Hesabın ele geçirildi: kriz planı',
                 'Telefonun kayboldu ya da çalındı',
+                'Etik hack',
+                'Etik hack: izinle savunmak',
+                'Açık bulursan: sorumlu bildirim',
+                'Kodu bir savunucu gibi oku',
                 'Son sınav: Kale kuşatması',
                 'Siber Kale',
             ]);
@@ -97,6 +101,9 @@ describe('show', function () {
         'data breach' => ['veri-sizintisi', 'Verilerin sızdı: şimdi ne olacak?', 'missions.data-breach'],
         'account recovery' => ['hesabin-ele-gecirildi', 'Hesabın ele geçirildi: kriz planı', 'missions.account-recovery'],
         'lost phone' => ['telefonun-kayboldu', 'Telefonun kayboldu ya da çalındı', 'missions.lost-phone'],
+        'ethical hacking' => ['etik-hack', 'Etik hack: izinle savunmak', 'missions.ethical-hacking'],
+        'responsible disclosure' => ['sorumlu-bildirim', 'Açık bulursan: sorumlu bildirim', 'missions.responsible-disclosure'],
+        'secure code' => ['guvenli-kod', 'Kodu bir savunucu gibi oku', 'missions.secure-code'],
         'final siege' => ['son-sinav-kale-kusatmasi', 'Son sınav: Kale kuşatması', 'missions.final-siege'],
     ]);
 
@@ -264,7 +271,7 @@ describe('exercise content', function () {
             ->and($answers[1])->toHaveCount(6)->each->toBeIn($actions[1]);
     });
 
-    it('renders the crisis plan with stages counting up from one and two traps', function (Mission $mission, int $stepCount) {
+    it('renders the crisis plan with stages counting up from one and its traps', function (Mission $mission, int $stepCount, int $trapCount) {
         $content = $this->get(route('missions.show', $mission))->getContent();
 
         preg_match_all('/data-stage="(\d+)"/', $content, $stages);
@@ -273,11 +280,35 @@ describe('exercise content', function () {
 
         expect($stages[1])->toHaveCount($stepCount)
             ->and($distinctStages)->toBe(range(1, count($distinctStages)))
-            ->and(substr_count($content, 'data-trap'))->toBe(2);
+            ->and(substr_count($content, 'data-trap'))->toBe($trapCount);
     })->with([
-        'account recovery' => [Mission::AccountRecovery, 8],
-        'lost phone' => [Mission::LostPhone, 5],
+        'account recovery' => [Mission::AccountRecovery, 8, 2],
+        'lost phone' => [Mission::LostPhone, 5, 2],
+        'responsible disclosure' => [Mission::ResponsibleDisclosure, 5, 3],
     ]);
+
+    it('renders the hat sorter with every scenario filed under an existing hat', function () {
+        $response = $this->get(route('missions.show', Mission::EthicalHacking));
+
+        preg_match_all('/data-sorter-bin="([^"]+)"/', $response->getContent(), $hats);
+        preg_match_all('/data-answer="([^"]+)"/', $response->getContent(), $answers);
+
+        expect($hats[1])->toBe(['beyaz', 'gri', 'siyah'])
+            ->and($answers[1])->toHaveCount(6)->each->toBeIn($hats[1]);
+    });
+
+    it('renders the code review as five escaped snippets with exactly one right fix each', function () {
+        $content = $this->get(route('missions.show', Mission::SecureCode))->getContent();
+
+        $review = explode('data-requirement="Tüm soruları doğru yanıtla"', explode('data-requirement="Beş kod parçasını incele"', $content)[1])[0];
+        $questions = array_slice(explode('data-question ', $review), 1);
+        $rightAnswersPerQuestion = array_map(fn (string $question) => substr_count($question, 'data-correct'), $questions);
+
+        expect(substr_count($review, '<pre class="terminal'))->toBe(5)
+            ->and($rightAnswersPerQuestion)->toHaveCount(5)->each->toBe(1)
+            ->and($review)->toContain('&lt;p&gt;')
+            ->not->toContain('<p>&#039; . $comment');
+    });
 
     it('renders the wifi list with exactly one real network', function () {
         $response = $this->get(route('missions.show', Mission::PublicWifi));

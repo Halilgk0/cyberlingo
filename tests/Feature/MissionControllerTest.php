@@ -42,6 +42,7 @@ describe('index', function () {
                 'Bir isteğin yolculuğu',
                 'Parolalar nasıl saklanır: özet ve tuz',
                 'Kayıtlardan saldırıyı yakala',
+                'Hizmet engelleme saldırıları: anla ve savun',
                 'Son sınav: Kale kuşatması',
                 'Siber Kale',
             ]);
@@ -111,6 +112,7 @@ describe('show', function () {
         'request journey' => ['istegin-yolculugu', 'Bir isteğin yolculuğu', 'missions.request-journey'],
         'password storage' => ['ozet-ve-tuz', 'Parolalar nasıl saklanır: özet ve tuz', 'missions.password-storage'],
         'log hunt' => ['kayit-avcisi', 'Kayıtlardan saldırıyı yakala', 'missions.log-hunt'],
+        'denial of service' => ['hizmet-engelleme', 'Hizmet engelleme saldırıları: anla ve savun', 'missions.denial-of-service'],
         'final siege' => ['son-sinav-kale-kusatmasi', 'Son sınav: Kale kuşatması', 'missions.final-siege'],
     ]);
 
@@ -239,6 +241,16 @@ describe('exercise content', function () {
 
         expect(substr_count($response->getContent(), 'data-email '))->toBe(5)
             ->and($response->getContent())->toContain('data-pass-score="4"');
+    });
+
+    it('renders the denial-of-service sorter with every case filed under an existing kind', function () {
+        $response = $this->get(route('missions.show', Mission::DenialOfService));
+
+        preg_match_all('/data-sorter-bin="([^"]+)"/', $response->getContent(), $kinds);
+        preg_match_all('/data-answer="([^"]+)"/', $response->getContent(), $answers);
+
+        expect($kinds[1])->toBe(['gercek', 'saldiri'])
+            ->and($answers[1])->toHaveCount(6)->each->toBeIn($kinds[1]);
     });
 
     it('renders the malware sorter with every case filed under an existing kind', function () {

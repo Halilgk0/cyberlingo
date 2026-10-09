@@ -13,7 +13,8 @@ test('missions are numbered by their position on the learning path', function ()
         ->and(Mission::DataBreach->number())->toBe(17)
         ->and(Mission::EthicalHacking->number())->toBe(20)
         ->and(Mission::RequestJourney->number())->toBe(23)
-        ->and(Mission::FinalSiege->number())->toBe(26);
+        ->and(Mission::DenialOfService->number())->toBe(26)
+        ->and(Mission::FinalSiege->number())->toBe(27);
 });
 
 test('each mission leads to the next one on the learning path', function () {

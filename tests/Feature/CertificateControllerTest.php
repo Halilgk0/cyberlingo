@@ -14,7 +14,7 @@ it('shows how many missions are left before the certificate is earned', function
 
     $response->assertOk()
         ->assertSee('Beratın henüz mühürlenmedi')
-        ->assertSee('24 görev kaldı')
+        ->assertSee('25 görev kaldı')
         ->assertDontSee('Beratı yazdır');
 });
 

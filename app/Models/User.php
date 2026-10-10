@@ -31,6 +31,16 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
 
     /**
+     * XP that counts as a finished day for the daily goal ring.
+     */
+    public const DAILY_GOAL_XP = 50;
+
+    /**
+     * Single missed days the live streak forgives before it resets.
+     */
+    public const STREAK_FREEZES = 1;
+
+    /**
      * Mirrors the column default, so a freshly registered learner already has a mascot color.
      *
      * @var array<string, string>
@@ -114,28 +124,68 @@ class User extends Authenticatable
     }
 
     /**
-     * Consecutive days with at least one completion, ending today. A streak that ended
-     * yesterday still counts, so it does not reset before the learner had a chance to play today.
+     * How many days in a row the learner has practised, counting back from today. Today may
+     * still be empty (they have until midnight), and one single missed day inside the run is
+     * forgiven — a built-in "streak freeze" — so a single slip does not reset the streak to zero.
+     * Two missed days in a row do end it.
      */
     public function streak(): int
     {
         $activeDates = $this->activeDates();
-        $day = CarbonImmutable::today();
 
-        if (! $activeDates->contains($day->toDateString())) {
-            $day = $day->subDay();
+        if ($activeDates->isEmpty()) {
+            return 0;
         }
 
-        $streak = 0;
+        $earliest = CarbonImmutable::parse($activeDates->first());
+        $active = array_flip($activeDates->all());
 
-        while ($activeDates->contains($day->toDateString())) {
-            $streak++;
+        $day = CarbonImmutable::today();
+        $streak = 0;
+        $graceUsed = false;
+        $freezes = self::STREAK_FREEZES;
+
+        while ($day->greaterThanOrEqualTo($earliest)) {
+            if (isset($active[$day->toDateString()])) {
+                $streak++;
+            } elseif (! $graceUsed && $day->isToday()) {
+                $graceUsed = true;
+            } elseif ($freezes > 0) {
+                $freezes--;
+            } else {
+                break;
+            }
+
             $day = $day->subDay();
         }
 
         return $streak;
     }
 
+    /**
+     * The streak is alive but today has not been practised yet, so it needs attention.
+     */
+    public function streakInDanger(): bool
+    {
+        return $this->streak() >= 1 && ! $this->hasPracticedToday();
+    }
+
+    public function xpEarnedToday(): int
+    {
+        return (int) $this->missionCompletions
+            ->filter(fn (MissionCompletion $completion) => $completion->created_at->isToday())
+            ->sum('xp');
+    }
+
+    public function reachedDailyGoal(): bool
+    {
+        return $this->xpEarnedToday() >= self::DAILY_GOAL_XP;
+    }
+
+    /**
+     * The longest run of strictly consecutive active days, ever. This stays strict (no freeze),
+     * so the streak badges reward genuinely unbroken runs.
+     */
     public function longestStreak(): int
     {
         $longest = 0;

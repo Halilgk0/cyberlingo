@@ -29,7 +29,7 @@
     One mission on the learning path. Lessons are shields, interludes are round rune
     stones, and a dragon trial is a large crowned shield. The chapter sets `--accent`.
 --}}
-<li class="flex w-full justify-center" data-path-node="{{ $state->value }}" data-kind="{{ $kind->value }}">
+<li class="flex w-full justify-center" data-path-node="{{ $state->value }}" data-kind="{{ $kind->value }}" @if ($state === MissionState::Current) data-current-node @endif>
     <div
         class="node-pop relative flex translate-x-[calc(var(--offset)*44px)] flex-col items-center sm:translate-x-[calc(var(--offset)*64px)]"
         style="--offset: {{ $offset }}; animation-delay: {{ $mission->number() * 60 }}ms"

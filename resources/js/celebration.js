@@ -69,6 +69,7 @@ export function openCelebration(result) {
     celebration.querySelector('[data-mascot]').dataset.mood = 'cheer';
     burstConfetti(celebration.querySelector('[data-confetti]'));
     countUp(find('xp'), result.xpEarned);
+    find('chapter').hidden = true;
 
     if (result.guest) {
         find('subtitle').textContent = 'İlk görevini bitirdin. Harika bir başlangıç!';
@@ -84,6 +85,11 @@ export function openCelebration(result) {
         find('subtitle').textContent = result.xpEarned > 0
             ? 'Bilgin ve XP’n artıyor.'
             : 'Bu görevi bugün zaten tekrar etmiştin; serin yine de sürüyor.';
+
+        if (result.chapterCompleted) {
+            find('chapter').hidden = false;
+            find('chapter').textContent = `🎉 “${result.chapterCompleted}” bölümünü bitirdin!`;
+        }
         find('streak').textContent = result.streak;
         find('level').textContent = result.rank.level;
         find('rank-title').textContent = result.rank.title;

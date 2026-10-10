@@ -34,8 +34,19 @@ describe('streak', function () {
         expect(learnerActiveOn('2026-10-07', '2026-10-08')->streak())->toBe(2);
     });
 
-    it('drops to zero once a whole day is missed', function () {
-        expect(learnerActiveOn('2026-10-05', '2026-10-06', '2026-10-07')->streak())->toBe(0);
+    it('forgives a single missed day with the streak freeze', function () {
+        // Today (09) is still open and yesterday (08) was missed, but one gap is forgiven.
+        expect(learnerActiveOn('2026-10-05', '2026-10-06', '2026-10-07')->streak())->toBe(3);
+    });
+
+    it('resets to zero after two missed days in a row', function () {
+        // Days 07, 08 and 09 are all empty: two real gaps, more than the freeze covers.
+        expect(learnerActiveOn('2026-10-04', '2026-10-05', '2026-10-06')->streak())->toBe(0);
+    });
+
+    it('flags a live streak that has not been practised today as in danger', function () {
+        expect(learnerActiveOn('2026-10-07', '2026-10-08')->streakInDanger())->toBeTrue()
+            ->and(learnerActiveOn('2026-10-08', '2026-10-09')->streakInDanger())->toBeFalse();
     });
 
     it('counts several completions on the same day once', function () {
@@ -93,6 +104,27 @@ describe('achievements', function () {
 
         expect($almostDone->earnedAchievements())->not->toContain(Achievement::ChecklistDone)
             ->and($done->earnedAchievements())->toContain(Achievement::ChecklistDone);
+    });
+});
+
+describe('daily goal', function () {
+    beforeEach(function () {
+        $this->travelTo('2026-10-09 09:00');
+    });
+
+    it('adds up only the XP earned today', function () {
+        $learner = User::factory()->create();
+        MissionCompletion::factory()->for($learner)->create(['xp' => 30, 'created_at' => '2026-10-09 08:00']);
+        MissionCompletion::factory()->for($learner)->create(['xp' => 70, 'created_at' => '2026-10-08 20:00']);
+
+        expect($learner->load('missionCompletions')->xpEarnedToday())->toBe(30);
+    });
+
+    it('is reached once the daily goal XP is earned', function () {
+        $learner = User::factory()->create();
+        MissionCompletion::factory()->for($learner)->create(['xp' => User::DAILY_GOAL_XP, 'created_at' => '2026-10-09 08:00']);
+
+        expect($learner->load('missionCompletions')->reachedDailyGoal())->toBeTrue();
     });
 });
 

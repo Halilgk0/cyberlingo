@@ -38,7 +38,7 @@
     <div class="mx-auto max-w-3xl">
         <header class="pt-6 pb-10 sm:pt-12 sm:pb-12">
             <p class="rune-label text-signal flex flex-wrap items-center gap-x-2 gap-y-1">
-                <span>Görev {{ $mission->number() }} · {{ $mission->chapter()->title() }}</span>
+                <span>Görev {{ $mission->number() }} / {{ count(\App\Enums\Mission::cases()) }} · {{ $mission->chapter()->title() }}</span>
                 @unless ($mission->kind() === \App\Enums\MissionKind::Lesson)
                     <span @class([
                         'rounded-md border px-2 py-0.5 text-xs',

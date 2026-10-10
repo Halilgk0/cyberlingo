@@ -34,9 +34,19 @@ export function initCoach() {
     const bubble = coach.querySelector('[data-coach-bubble]');
     let resetTimer;
 
+    const flash = (className) => {
+        mascot.classList.remove('mascot-hit', 'mascot-burst');
+        // Force a reflow so the same animation can replay on repeated reactions.
+        void mascot.getBoundingClientRect();
+        mascot.classList.add(className);
+    };
+
+    mascot.addEventListener('animationend', () => mascot.classList.remove('mascot-hit', 'mascot-burst'));
+
     const show = (reaction) => {
         const { mood, messages } = REACTIONS[reaction];
 
+        flash(reaction === 'wrong' ? 'mascot-hit' : 'mascot-burst');
         mascot.dataset.mood = mood;
         bubble.textContent = pick(messages);
         bubble.setAttribute('data-visible', '');

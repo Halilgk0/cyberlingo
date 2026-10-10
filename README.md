@@ -39,13 +39,13 @@ görev bitince seninle birlikte kutlar.
   saldırılarını tanıyıp bir siteyi savunma. Bütün bölüm savunma odaklıdır; hiçbir saldırı yöntemi öğretilmez.
 - **Olay müdahale simülasyonu.** Fidye yazılımı saldırısı altındaki bir şirkette BT sorumlusu olarak her kararı sen ver; seçimlerin kilitlenir,
   durum göstergelerini değiştirir ve hikâyeyi farklı sonlara götürür. Baskı altında karar vermeyi öğreten, dallanan bir deneyim.
-- **Oyunlaştırma.** XP, günlük seri, Çırak’tan Siber Kahraman’a 6 seviye, 16 rozet, haftalık sıralama ve yolun sonunda yazdırılabilir
+- **Oyunlaştırma.** XP, günlük hedef halkası, bir günlük molayı affeden günlük seri, Çırak’tan Siber Kahraman’a 6 seviye, 16 rozet, haftalık sıralama ve yolun sonunda yazdırılabilir
   bir **Siber Şövalye Beratı**.
 - **Kale kontrol listesi.** Öğrendiklerini gerçek hayatta uyguladıkça işaretlediğin 12 maddelik kişisel güvenlik listesi. Her madde onu
   anlatan göreve bağlı, işaretler hesabına kaydedilir ve listeyi bitirene rozet verilir.
 - **Hesaplar.** Kayıt ve giriş, profil, maskot rengini seçme, hesabı silme. İlk görev hesap açmadan denenebilir; misafirken kazanılan
   ilerleme kayıt olunca hesaba aktarılır.
-- **Canlı bir arayüz.** Animasyonlu maskot, konfetili kutlama ekranı, ses efektleri, kaydırdıkça beliren bölümler. Cihazında
+- **Canlı bir arayüz.** İlk girişte kısa bir karşılama, doğru/yanlış cevapta parazitlenip “hasar alan” ya da parlayan maskot Bit, konfetili kutlama ekranı (bölüm bitince özel kutlama), ses ve titreşim efektleri, yolda sıradaki göreve otomatik kaydırma. Cihazında
   “hareketi azalt” ayarı açıksa animasyonlar kapanır.
 - **Sözlük.** 82 terimin kısa açıklaması; her terim onu anlatan göreve bağlı ve Türkçe karakter yazmadan da aranabiliyor.
 - **Telefona uygun.** Telefonda alt sekme çubuğu, alt alta dizilen düzen ve dokunmaya uygun alıştırmalar.
@@ -138,7 +138,7 @@ ekler. Bu hesap yalnızca bilgisayarındaki geliştirme ortamı içindir.
 php artisan test
 ```
 
-Pest ile yazılmış 138 test; kayıt ve giriş, görevlerin sırayla açılması, XP ve seri hesapları, rozetler, sıralama ve beratın yanında
+Pest ile yazılmış 145 test; kayıt ve giriş, görevlerin sırayla açılması, XP ve seri hesapları, rozetler, sıralama ve beratın yanında
 kontrol listesinin ve alıştırma içeriklerinin doğru kurulduğunu da denetler (örneğin her sorunun tek bir doğru cevabı olması). Kod stili için
 `vendor/bin/pint` kullanılır.
 

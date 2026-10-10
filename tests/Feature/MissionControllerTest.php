@@ -156,7 +156,7 @@ describe('show', function () {
     it('shows the chapter of the mission above its title', function () {
         $response = $this->get(route('missions.show', Mission::SecurityBasics));
 
-        $response->assertOk()->assertSee('Görev 1 · Temeller');
+        $response->assertOk()->assertSee('Görev 1 / 28 · Temeller');
     });
 
     it('offers the replay reward on a mission completed before', function () {

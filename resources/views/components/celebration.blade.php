@@ -17,6 +17,7 @@
 
         <h2 id="celebration-title" tabindex="-1" class="font-display rise-in mt-1 text-4xl leading-tight font-extrabold sm:text-5xl focus:outline-none">Görev tamamlandı!</h2>
         <p data-celebration-subtitle class="text-muted rise-in mt-2 text-lg"></p>
+        <p data-celebration-chapter class="rise-in border-safe/60 bg-safe/10 text-safe mt-4 w-full rounded-2xl border-2 px-4 py-3 font-extrabold [animation-delay:80ms]" hidden></p>
 
         <div class="rise-in mt-7 grid w-full grid-cols-2 gap-3 [animation-delay:120ms]">
             <div class="border-signal/60 bg-signal/10 rounded-2xl border-2 p-4">

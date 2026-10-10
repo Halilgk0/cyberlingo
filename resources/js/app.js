@@ -1,5 +1,6 @@
 import { initChecklist } from './checklist';
 import { initGlossary } from './glossary';
+import { initOnboarding } from './onboarding';
 import { initCoach } from './mascot';
 import { initBackups } from './missions/backups';
 import { initCastle } from './missions/castle';
@@ -23,6 +24,7 @@ import { initTwoFactor } from './missions/two-factor';
 import { initUrlLabs } from './missions/url-lab';
 import { initVault } from './missions/vault';
 import { initPasswordFields } from './password-fields';
+import { initPath } from './path';
 import { initPrint, initReveal, initToast } from './reveal';
 import { initSound } from './sound';
 
@@ -32,8 +34,10 @@ initPrint();
 initCoach();
 initSound();
 initGlossary();
+initOnboarding();
 initChecklist();
 initPasswordFields();
+initPath();
 initQuizzes();
 initExams();
 initSorters();

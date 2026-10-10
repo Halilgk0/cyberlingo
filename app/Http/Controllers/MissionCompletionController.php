@@ -33,9 +33,14 @@ class MissionCompletionController extends Controller
 
         $rankBefore = $learner->rank();
         $achievementsBefore = $learner->earnedAchievements();
+        $firstCompletion = ! $learner->hasCompleted($mission);
         $xpEarned = $learner->completeMission($mission);
         $rank = $learner->rank();
         $nextMission = $mission->next();
+
+        $chapter = $mission->chapter();
+        $chapterJustCompleted = $firstCompletion
+            && collect($chapter->missions())->every(fn (Mission $chapterMission) => $learner->hasCompleted($chapterMission));
 
         return response()->json([
             'guest' => false,
@@ -64,6 +69,7 @@ class MissionCompletionController extends Controller
                 'url' => route('missions.show', $nextMission),
                 'title' => $nextMission->title(),
             ],
+            'chapterCompleted' => $chapterJustCompleted ? $chapter->title() : null,
             'pathUrl' => route('missions.index'),
             'certificateUrl' => count($learner->completedMissions()) === count(Mission::cases()) ? route('certificate') : null,
         ]);

@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\Chapter;
 use App\Enums\Mission;
 use App\Models\MissionCompletion;
 use App\Models\User;
@@ -107,5 +108,30 @@ describe('as a learner', function () {
         $response = $this->actingAs($learner)->postJson(route('missions.completions.store', Mission::SecurityBasics));
 
         $response->assertOk()->assertJsonPath('certificateUrl', null);
+    });
+
+    it('announces a chapter on the completion that finishes it', function () {
+        $missions = Chapter::Basics->missions();
+        $learner = User::factory()->completed(...array_slice($missions, 0, -1))->create();
+
+        $response = $this->actingAs($learner)->postJson(route('missions.completions.store', end($missions)));
+
+        $response->assertOk()->assertJsonPath('chapterCompleted', 'Temeller');
+    });
+
+    it('does not announce a chapter part-way through it', function () {
+        $learner = User::factory()->create();
+
+        $response = $this->actingAs($learner)->postJson(route('missions.completions.store', Mission::SecurityBasics));
+
+        $response->assertOk()->assertJsonPath('chapterCompleted', null);
+    });
+
+    it('does not announce a chapter on a replay that completes nothing new', function () {
+        $learner = User::factory()->completed(...Chapter::Basics->missions())->create();
+
+        $response = $this->actingAs($learner)->postJson(route('missions.completions.store', Mission::CastleDefense));
+
+        $response->assertOk()->assertJsonPath('chapterCompleted', null);
     });
 });

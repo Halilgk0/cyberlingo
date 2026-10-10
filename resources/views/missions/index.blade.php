@@ -91,7 +91,42 @@
                     $rank = $learner->rank();
                     $totalXp = $learner->totalXp();
                     $practicedToday = $learner->hasPracticedToday();
+                    $goal = \App\Models\User::DAILY_GOAL_XP;
+                    $xpToday = $learner->xpEarnedToday();
+                    $goalReached = $learner->reachedDailyGoal();
+                    $goalPercent = min(100, round($xpToday / $goal * 100));
+                    $ringCircumference = 2 * M_PI * 36;
                 @endphp
+
+                <section aria-label="Günlük hedef" @class(['riveted relative overflow-hidden rounded-[1.5rem] border-2 p-5', 'bg-safe/10 border-safe/40' => $goalReached, 'bg-card border-line' => ! $goalReached])>
+                    <div class="flex items-center gap-4">
+                        <div class="relative grid size-20 shrink-0 place-items-center">
+                            <svg viewBox="0 0 80 80" class="size-20 -rotate-90" aria-hidden="true">
+                                <circle cx="40" cy="40" r="36" fill="none" stroke="currentColor" stroke-width="7" class="text-line" />
+                                <circle cx="40" cy="40" r="36" fill="none" stroke-width="7" stroke-linecap="round"
+                                    @class(['text-safe' => $goalReached, 'text-signal' => ! $goalReached])
+                                    stroke="currentColor"
+                                    stroke-dasharray="{{ $ringCircumference }}"
+                                    stroke-dashoffset="{{ $ringCircumference * (1 - $goalPercent / 100) }}"
+                                    style="transition: stroke-dashoffset 700ms ease" />
+                            </svg>
+                            <span class="absolute">
+                                @if ($goalReached)
+                                    <x-icons.check class="text-safe size-8" />
+                                @else
+                                    <span class="font-display text-signal text-lg leading-none font-extrabold">%{{ $goalPercent }}</span>
+                                @endif
+                            </span>
+                        </div>
+                        <div class="min-w-0">
+                            <p class="rune-label @if ($goalReached) text-safe @else text-signal @endif text-xs">Günlük hedef</p>
+                            <p class="font-display mt-1 text-2xl leading-tight font-extrabold">{{ $xpToday }} / {{ $goal }} XP</p>
+                            <p class="text-muted mt-0.5 text-sm leading-snug">
+                                {{ $goalReached ? 'Bugünkü hedefini tutturdun, aferin!' : 'Bir görev daha bitir, hedefe yaklaş.' }}
+                            </p>
+                        </div>
+                    </div>
+                </section>
 
                 <x-daily-tip />
 
@@ -113,16 +148,23 @@
                     <a href="{{ route('profile.show') }}" class="btn-secondary mt-4 w-full">Profilim</a>
                 </section>
 
-                <section aria-label="Günlük seri" class="bg-card border-line riveted rounded-[1.5rem] border-2 p-5">
+                @php($inDanger = $learner->streakInDanger())
+                <section aria-label="Günlük seri" @class(['riveted rounded-[1.5rem] border-2 p-5', 'border-alert/50 bg-alert/8' => $inDanger, 'bg-card border-line' => ! $inDanger])>
                     <div class="flex items-center gap-3">
-                        <x-icons.flame @class(['size-12 shrink-0', 'flame text-[#ff9a3c]' => $practicedToday, 'text-muted' => ! $practicedToday]) />
+                        <x-icons.flame @class(['size-12 shrink-0', 'flame text-[#ff9a3c]' => $practicedToday, 'text-alert' => $inDanger, 'text-muted' => ! $practicedToday && ! $inDanger]) />
                         <div>
                             <p class="font-display text-3xl font-extrabold">{{ $learner->streak() }} günlük seri</p>
-                            <p class="text-muted text-sm leading-snug">
-                                {{ $practicedToday ? 'Bugünkü görevini yaptın, harika!' : 'Serini sürdürmek için bugün bir görev bitir.' }}
+                            <p @class(['text-sm leading-snug', 'text-alert font-bold' => $inDanger, 'text-muted' => ! $inDanger])>
+                                {{ $practicedToday ? 'Bugünkü görevini yaptın, harika!' : 'Serini kaybetmemek için bugün bir görev bitir.' }}
                             </p>
                         </div>
                     </div>
+                    @if ($inDanger && $currentMission)
+                        <a href="{{ route('missions.show', $currentMission) }}" class="btn-primary mt-4 w-full">Serini kurtar: hemen bir görev yap</a>
+                    @endif
+                    <p class="text-muted mt-3 flex items-center gap-1.5 text-xs leading-snug">
+                        <x-icons.shield class="text-rune size-4 shrink-0" /> Seri koruması açık: bir günlük molanı affeder.
+                    </p>
                     <ol class="mt-4 grid grid-cols-7 gap-1 text-center">
                         @foreach ($learner->dailyXp(7) as $day)
                             <li class="flex flex-col items-center gap-1">
@@ -193,4 +235,18 @@
             </section>
         </aside>
     </div>
+    {{-- First-visit welcome; onboarding.js opens it once, then remembers in the browser. --}}
+    <dialog data-welcome aria-labelledby="welcome-title" class="bg-card border-line text-ink m-auto w-[calc(100%-2rem)] max-w-md rounded-[1.75rem] border-2 p-0 backdrop:bg-black/75" hidden>
+        <div class="flex flex-col items-center p-6 text-center sm:p-8">
+            <x-mascot mood="wave" class="size-24" />
+            <p class="rune-label text-signal mt-4">Ben Bit, kalenin bekçisi</p>
+            <h2 id="welcome-title" class="font-display mt-1 text-3xl leading-tight font-extrabold text-balance sm:text-4xl">CyberLingo’ya hoş geldin!</h2>
+            <ul class="mt-5 flex w-full flex-col gap-3 text-left">
+                <li class="flex items-start gap-3"><x-icons.shield class="text-signal mt-0.5 size-6 shrink-0" /><span class="leading-snug">Siber güvenliği <strong class="font-bold">sıfırdan</strong>, kısa görevlerle öğrenirsin.</span></li>
+                <li class="flex items-start gap-3"><x-icons.bolt class="text-signal mt-0.5 size-6 shrink-0" /><span class="leading-snug">Her görevde <strong class="font-bold">XP</strong> kazanır, günlük serini sürdürür, seviye atlarsın.</span></li>
+                <li class="flex items-start gap-3"><x-icons.path class="text-signal mt-0.5 size-6 shrink-0" /><span class="leading-snug">Görevler sırayla açılır; <strong class="font-bold">ilkini hesap açmadan</strong> deneyebilirsin.</span></li>
+            </ul>
+            <button type="button" data-welcome-start class="btn-primary mt-7 w-full py-4 text-lg">Hadi başlayalım</button>
+        </div>
+    </dialog>
 </x-layouts.app>

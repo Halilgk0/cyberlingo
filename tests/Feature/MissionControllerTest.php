@@ -43,6 +43,7 @@ describe('index', function () {
                 'Parolalar nasıl saklanır: özet ve tuz',
                 'Kayıtlardan saldırıyı yakala',
                 'Hizmet engelleme saldırıları: anla ve savun',
+                'Olay müdahalesi: fidye yazılımı simülasyonu',
                 'Son sınav: Kale kuşatması',
                 'Siber Kale',
             ]);
@@ -113,6 +114,7 @@ describe('show', function () {
         'password storage' => ['ozet-ve-tuz', 'Parolalar nasıl saklanır: özet ve tuz', 'missions.password-storage'],
         'log hunt' => ['kayit-avcisi', 'Kayıtlardan saldırıyı yakala', 'missions.log-hunt'],
         'denial of service' => ['hizmet-engelleme', 'Hizmet engelleme saldırıları: anla ve savun', 'missions.denial-of-service'],
+        'incident response' => ['olay-mudahale', 'Olay müdahalesi: fidye yazılımı simülasyonu', 'missions.incident-response'],
         'final siege' => ['son-sinav-kale-kusatmasi', 'Son sınav: Kale kuşatması', 'missions.final-siege'],
     ]);
 
@@ -241,6 +243,37 @@ describe('exercise content', function () {
 
         expect(substr_count($response->getContent(), 'data-email '))->toBe(5)
             ->and($response->getContent())->toContain('data-pass-score="4"');
+    });
+
+    it('renders the incident simulation with a start scene, status chips and ending rules', function () {
+        $content = $this->get(route('missions.show', Mission::IncidentResponse))->getContent();
+
+        $data = json_decode(html_entity_decode(
+            preg_replace('/.*data-incident-data>(.*?)<\/script>.*/s', '$1', $content),
+            ENT_QUOTES
+        ), true);
+
+        expect($data['start'])->toBe('s1')
+            ->and($data['scenes']['s1']['choices'])->toHaveCount(3)
+            ->and(array_keys($data['status']))->toBe(['yayilma', 'kanit', 'yedek'])
+            ->and($data['resolve']['failFlag'])->toBe('paid')
+            ->and($data['scenes'])->toHaveKeys(['son_iyi', 'son_orta', 'son_kotu']);
+    });
+
+    it('marks every incident choice with a destination that exists', function () {
+        $content = $this->get(route('missions.show', Mission::IncidentResponse))->getContent();
+
+        $data = json_decode(html_entity_decode(
+            preg_replace('/.*data-incident-data>(.*?)<\/script>.*/s', '$1', $content),
+            ENT_QUOTES
+        ), true);
+
+        $targets = collect($data['scenes'])
+            ->flatMap(fn (array $scene) => array_column($scene['choices'] ?? [], 'to'))
+            ->unique()
+            ->reject(fn (string $to) => $to === $data['resolve']['at']);
+
+        expect($targets->every(fn (string $to) => array_key_exists($to, $data['scenes'])))->toBeTrue();
     });
 
     it('renders the denial-of-service sorter with every case filed under an existing kind', function () {

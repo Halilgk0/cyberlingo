@@ -36,6 +36,7 @@ enum Mission: string
     case PasswordStorage = 'ozet-ve-tuz';
     case LogHunt = 'kayit-avcisi';
     case DenialOfService = 'hizmet-engelleme';
+    case IncidentResponse = 'olay-mudahale';
     case FinalSiege = 'son-sinav-kale-kusatmasi';
 
     /**
@@ -81,6 +82,7 @@ enum Mission: string
         return match ($this) {
             self::CastleDefense, self::PasswordVault, self::LostPhone => MissionKind::Interlude,
             self::PhishingDragon, self::FinalSiege => MissionKind::Challenge,
+            self::IncidentResponse => MissionKind::Simulation,
             default => MissionKind::Lesson,
         };
     }
@@ -95,7 +97,7 @@ enum Mission: string
             self::Encryption, self::PublicWifi, self::Malware, self::Backups => Chapter::DataAndConnections,
             self::DataBreach, self::AccountRecovery, self::LostPhone => Chapter::Crisis,
             self::EthicalHacking, self::ResponsibleDisclosure, self::SecureCode => Chapter::EthicalHacking,
-            self::RequestJourney, self::PasswordStorage, self::LogHunt, self::DenialOfService, self::FinalSiege => Chapter::Defense,
+            self::RequestJourney, self::PasswordStorage, self::LogHunt, self::DenialOfService, self::IncidentResponse, self::FinalSiege => Chapter::Defense,
         };
     }
 
@@ -128,6 +130,7 @@ enum Mission: string
             self::PasswordStorage => 'Parolalar nasıl saklanır: özet ve tuz',
             self::LogHunt => 'Kayıtlardan saldırıyı yakala',
             self::DenialOfService => 'Hizmet engelleme saldırıları: anla ve savun',
+            self::IncidentResponse => 'Olay müdahalesi: fidye yazılımı simülasyonu',
             self::FinalSiege => 'Son sınav: Kale kuşatması',
         };
     }
@@ -161,6 +164,7 @@ enum Mission: string
             self::PasswordStorage => 'Özet fonksiyonlarını kendi elinle dene, aynı parolaların neden tuzlanması gerektiğini gör ve parolaların neden bilerek yavaş özetlendiğini öğren.',
             self::LogHunt => 'Bir savunma ekibi gibi giriş kayıtlarını oku ve süz, bir saldırının izlerini bul, sonra doğru müdahaleyi seç.',
             self::DenialOfService => 'Bir hizmet engelleme (DoS/DDoS) saldırısının ne olduğunu ve nasıl ortaya çıktığını öğren, gerçek bir yoğunluğu saldırıdan ayır ve bir siteyi nasıl savunacağını gör.',
+            self::IncidentResponse => 'Bir şirkette fidye yazılımı saldırısı başladı ve sorumlu sensin. Dallanan, sonuçları olan bir krizde her kararı sen ver; öğrendiğin her şeyi baskı altında uygula.',
             self::FinalSiege => 'Bütün yolun son sınavı: on iki soruluk bir kuşatma, her soruya tek hak. Kaleyi savunmak için en az onunu doğru bil.',
         };
     }
@@ -176,6 +180,7 @@ enum Mission: string
             self::TwoFactor, self::PhishingDragon, self::Encryption, self::Backups, self::AccountRecovery, self::SecureCode,
             self::RequestJourney, self::PasswordStorage, self::DenialOfService => 8,
             self::LogHunt => 9,
+            self::IncidentResponse => 10,
             self::FinalSiege => 12,
         };
     }
@@ -212,6 +217,7 @@ enum Mission: string
             self::PasswordStorage => 'icons.hash',
             self::LogHunt => 'icons.log',
             self::DenialOfService => 'icons.surge',
+            self::IncidentResponse => 'icons.siren',
             self::FinalSiege => 'icons.shield',
         };
     }
@@ -245,6 +251,7 @@ enum Mission: string
             self::PasswordStorage => 'missions.password-storage',
             self::LogHunt => 'missions.log-hunt',
             self::DenialOfService => 'missions.denial-of-service',
+            self::IncidentResponse => 'missions.incident-response',
             self::FinalSiege => 'missions.final-siege',
         };
     }

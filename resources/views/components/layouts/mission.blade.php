@@ -44,6 +44,7 @@
                         'rounded-md border px-2 py-0.5 text-xs',
                         'border-[#ff8a96]/50 text-[#ff8a96]' => $mission->kind() === \App\Enums\MissionKind::Challenge,
                         'border-signal/50' => $mission->kind() === \App\Enums\MissionKind::Interlude,
+                        'border-rune/50 text-rune' => $mission->kind() === \App\Enums\MissionKind::Simulation,
                     ])>{{ $mission->kind()->label() }}</span>
                 @endunless
             </p>

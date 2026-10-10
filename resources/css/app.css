@@ -149,6 +149,31 @@
         @apply border-line rounded-[1.25rem] border bg-[#050507] p-5 font-mono text-sm leading-relaxed text-[#d7e0ec] shadow-[inset_0_0_40px_rgb(94_230_208/0.04)] sm:p-6;
     }
 
+    /* The incident simulation's status chips; their colour follows the situation. */
+    [data-status-chip] {
+        @apply bg-card border-line rounded-xl border-2 p-2.5 text-center transition-colors sm:p-3;
+    }
+
+    [data-status-chip][data-tone='good'] {
+        @apply border-safe/50;
+    }
+
+    [data-status-chip][data-tone='bad'] {
+        @apply border-alert/50;
+    }
+
+    [data-status-chip] [data-status-value] {
+        @apply mt-1 block text-sm leading-tight font-bold text-balance;
+    }
+
+    [data-status-chip][data-tone='good'] [data-status-value] {
+        @apply text-safe;
+    }
+
+    [data-status-chip][data-tone='bad'] [data-status-value] {
+        @apply text-alert;
+    }
+
     /* Short code inside running text, such as a function name in an explanation. Long lines wrap on phones. */
     :where(.lesson, [data-explanation], aside, [data-plan-item-why]) :where(code) {
         @apply bg-ink/10 rounded px-1 py-0.5 font-mono text-[0.9em] [overflow-wrap:anywhere];

@@ -69,7 +69,7 @@
                     aria-label="{{ $label }}"
                     @class([
                         'text-muted grid place-items-center',
-                        'shield-face' => $kind === MissionKind::Lesson,
+                        'shield-face' => $kind === MissionKind::Lesson || $kind === MissionKind::Simulation,
                         'shield-face-large' => $kind === MissionKind::Challenge,
                         'size-16 rounded-full' => $kind === MissionKind::Interlude,
                     ])
@@ -83,7 +83,7 @@
                     aria-label="{{ $label }}"
                     @class([
                         'focus-visible:outline-ink relative grid place-items-center text-[#0c0b0f] transition-[filter] hover:brightness-110 focus-visible:outline-4 focus-visible:outline-offset-4',
-                        'shield-face' => $kind === MissionKind::Lesson,
+                        'shield-face' => $kind === MissionKind::Lesson || $kind === MissionKind::Simulation,
                         'shield-face-large text-[#fff1f1]' => $kind === MissionKind::Challenge,
                         'size-16 rounded-full ring-4 ring-black/25 ring-inset' => $kind === MissionKind::Interlude,
                     ])
@@ -105,6 +105,7 @@
                 'rune-label mt-3 text-xs',
                 'text-[#ff8a96]' => $kind === MissionKind::Challenge && ! $isLocked,
                 'text-signal' => $kind === MissionKind::Interlude && ! $isLocked,
+                'text-rune' => $kind === MissionKind::Simulation && ! $isLocked,
                 'text-muted' => $isLocked,
             ])>{{ $kind->label() }}</p>
         @endunless

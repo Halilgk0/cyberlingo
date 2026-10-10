@@ -13,7 +13,7 @@ class ChecklistController extends Controller
 {
     public function show(Request $request): View
     {
-        $learner = $request->user()->load('missionCompletions');
+        $learner = $request->user()->load(['missionCompletions', 'xpAwards']);
 
         return view('checklist.show', [
             'learner' => $learner,

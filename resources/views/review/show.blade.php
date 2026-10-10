@@ -26,6 +26,9 @@
                         <span data-review-cleared class="text-safe font-extrabold">0</span> soruyu doğru bildin ve defterinden sildin.
                         <span data-review-again class="text-alert font-extrabold">0</span> soru yarın tekrar karşına çıkacak.
                     </p>
+                    <p data-review-xp-line class="bg-signal/10 border-signal/50 text-signal mt-4 inline-flex items-center gap-1.5 rounded-full border-2 px-4 py-1.5 font-extrabold" hidden>
+                        <x-icons.bolt class="size-5" /> +<span data-review-xp>0</span> XP
+                    </p>
                     <a href="{{ route('missions.index') }}" class="btn-primary mt-6">Öğrenme yoluna dön</a>
                 </div>
             </div>

@@ -16,7 +16,7 @@ class ProfileController extends Controller
 {
     public function show(Request $request): View
     {
-        $learner = $request->user()->load('missionCompletions');
+        $learner = $request->user()->load(['missionCompletions', 'xpAwards']);
         $completionsByMission = $learner->missionCompletions->groupBy(fn (MissionCompletion $completion) => $completion->mission->value);
 
         return view('profile.show', [

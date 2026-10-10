@@ -107,6 +107,32 @@ describe('achievements', function () {
     });
 });
 
+describe('xp awards', function () {
+    beforeEach(function () {
+        $this->travelTo('2026-10-10 09:00');
+    });
+
+    it('counts review XP in the total, today and the streak', function () {
+        $learner = User::factory()->create();
+        MissionCompletion::factory()->for($learner)->create(['xp' => 50, 'created_at' => '2026-10-10 08:00']);
+        $learner->xpAwards()->create(['xp' => 20, 'source' => 'review']);
+        $learner->load(['missionCompletions', 'xpAwards']);
+
+        expect($learner->totalXp())->toBe(70)
+            ->and($learner->xpEarnedToday())->toBe(70)
+            ->and($learner->hasPracticedToday())->toBeTrue();
+    });
+
+    it('lets a review-only day keep the streak alive', function () {
+        $learner = User::factory()->create();
+        MissionCompletion::factory()->for($learner)->create(['xp' => 50, 'created_at' => '2026-10-09 18:00']);
+        $learner->xpAwards()->create(['xp' => 20, 'source' => 'review']);
+        $learner->load(['missionCompletions', 'xpAwards']);
+
+        expect($learner->streak())->toBe(2);
+    });
+});
+
 describe('daily goal', function () {
     beforeEach(function () {
         $this->travelTo('2026-10-09 09:00');

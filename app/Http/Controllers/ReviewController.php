@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ResolveReviewRequest;
 use App\Http\Requests\StoreReviewItemRequest;
 use App\Models\ReviewItem;
+use App\Models\User;
 use Carbon\CarbonImmutable;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -52,13 +53,25 @@ class ReviewController extends Controller
      */
     public function resolve(ResolveReviewRequest $request): JsonResponse
     {
-        $learner = $request->user();
+        $learner = $request->user()->load('xpAwards');
+        $correct = $request->validated('correct', []);
+        $wrong = $request->validated('wrong', []);
 
-        $learner->reviewItems()->whereIn('key', $request->validated('correct', []))->delete();
-        $learner->reviewItems()->whereIn('key', $request->validated('wrong', []))->update([
-            'due_on' => CarbonImmutable::tomorrow(),
+        $learner->reviewItems()->whereIn('key', $correct)->delete();
+        $learner->reviewItems()->whereIn('key', $wrong)->update(['due_on' => CarbonImmutable::tomorrow()]);
+
+        // A finished review session is worth a small bonus, at most once a day, so it
+        // counts towards the daily goal and the streak without being farmable.
+        $xpEarned = 0;
+
+        if (count($correct) + count($wrong) > 0 && ! $learner->earnedReviewBonusToday()) {
+            $learner->xpAwards()->create(['xp' => User::REVIEW_XP, 'source' => 'review']);
+            $xpEarned = User::REVIEW_XP;
+        }
+
+        return response()->json([
+            'remaining' => $learner->reviewItems()->due()->count(),
+            'xpEarned' => $xpEarned,
         ]);
-
-        return response()->json(['remaining' => $learner->reviewItems()->due()->count()]);
     }
 }

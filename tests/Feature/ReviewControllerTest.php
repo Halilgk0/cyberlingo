@@ -102,6 +102,31 @@ describe('the review session', function () {
             ->and($learner->reviewItems()->sole()->due_on->toDateString())->toBe('2026-10-11');
     });
 
+    it('awards a once-a-day XP bonus for finishing a review session', function () {
+        $learner = User::factory()->create();
+        $learner->reviewItems()->create(['key' => 'a', 'data' => questionPayload('a'), 'due_on' => CarbonImmutable::today()]);
+
+        $this->actingAs($learner)->postJson(route('review.resolve'), ['correct' => ['a'], 'wrong' => []])
+            ->assertOk()->assertJsonPath('xpEarned', 20);
+
+        expect($learner->xpAwards()->count())->toBe(1);
+
+        $learner->reviewItems()->create(['key' => 'b', 'data' => questionPayload('b'), 'due_on' => CarbonImmutable::today()]);
+        $this->actingAs($learner)->postJson(route('review.resolve'), ['correct' => ['b'], 'wrong' => []])
+            ->assertOk()->assertJsonPath('xpEarned', 0);
+
+        expect($learner->xpAwards()->count())->toBe(1);
+    });
+
+    it('gives no XP when nothing was answered', function () {
+        $learner = User::factory()->create();
+
+        $this->actingAs($learner)->postJson(route('review.resolve'), ['correct' => [], 'wrong' => []])
+            ->assertOk()->assertJsonPath('xpEarned', 0);
+
+        expect($learner->xpAwards()->count())->toBe(0);
+    });
+
     it('counts the questions due today', function () {
         $learner = User::factory()->create();
         $learner->reviewItems()->create(['key' => 'a', 'data' => questionPayload('a'), 'due_on' => CarbonImmutable::today()]);

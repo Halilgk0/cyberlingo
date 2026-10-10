@@ -18,7 +18,7 @@ class MissionCompletionController extends Controller
     {
         Gate::authorize('start-mission', $mission);
 
-        $learner = $request->user()?->load('missionCompletions');
+        $learner = $request->user()?->load(['missionCompletions', 'xpAwards']);
 
         if ($learner === null) {
             GuestProgress::add($request->session(), $mission);

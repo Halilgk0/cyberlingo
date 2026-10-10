@@ -18,7 +18,7 @@ class MissionController extends Controller
      */
     public function index(Request $request): View
     {
-        $learner = $request->user()?->load('missionCompletions');
+        $learner = $request->user()?->load(['missionCompletions', 'xpAwards']);
         $completedMissions = $learner?->completedMissions() ?? GuestProgress::missions($request->session());
         $nextMission = collect(Mission::cases())->first(fn (Mission $mission) => ! in_array($mission, $completedMissions, true));
         $currentMission = $nextMission !== null && Gate::allows('start-mission', $nextMission) ? $nextMission : null;

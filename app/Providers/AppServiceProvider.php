@@ -39,7 +39,7 @@ class AppServiceProvider extends ServiceProvider
         Password::defaults(fn () => Password::min(12));
 
         View::composer(['components.layouts.app', 'components.layouts.mission'], function (ViewInstance $view): void {
-            $learner = Auth::user()?->loadMissing('missionCompletions');
+            $learner = Auth::user()?->loadMissing(['missionCompletions', 'xpAwards']);
 
             $view->with([
                 'learner' => $learner,

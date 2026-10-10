@@ -41,6 +41,11 @@ class User extends Authenticatable
     public const STREAK_FREEZES = 1;
 
     /**
+     * XP for finishing a daily review session, given at most once a day.
+     */
+    public const REVIEW_XP = 20;
+
+    /**
      * Mirrors the column default, so a freshly registered learner already has a mascot color.
      *
      * @var array<string, string>
@@ -91,6 +96,25 @@ class User extends Authenticatable
     }
 
     /**
+     * XP earned outside missions, such as review sessions.
+     *
+     * @return HasMany<XpAward, $this>
+     */
+    public function xpAwards(): HasMany
+    {
+        return $this->hasMany(XpAward::class);
+    }
+
+    /**
+     * Whether the learner has already earned the review bonus today.
+     */
+    public function earnedReviewBonusToday(): bool
+    {
+        return $this->xpAwards
+            ->contains(fn (XpAward $award) => $award->source === 'review' && $award->created_at->isToday());
+    }
+
+    /**
      * Missions completed at least once, in path order.
      *
      * @return list<Mission>
@@ -125,7 +149,7 @@ class User extends Authenticatable
 
     public function totalXp(): int
     {
-        return (int) $this->missionCompletions->sum('xp');
+        return (int) ($this->missionCompletions->sum('xp') + $this->xpAwards->sum('xp'));
     }
 
     public function rank(): Rank
@@ -190,9 +214,12 @@ class User extends Authenticatable
 
     public function xpEarnedToday(): int
     {
-        return (int) $this->missionCompletions
-            ->filter(fn (MissionCompletion $completion) => $completion->created_at->isToday())
-            ->sum('xp');
+        $onToday = fn ($record) => $record->created_at->isToday();
+
+        return (int) (
+            $this->missionCompletions->filter($onToday)->sum('xp')
+            + $this->xpAwards->filter($onToday)->sum('xp')
+        );
     }
 
     public function reachedDailyGoal(): bool
@@ -237,9 +264,10 @@ class User extends Authenticatable
 
             return [
                 'date' => $day,
-                'xp' => (int) $this->missionCompletions
-                    ->filter(fn (MissionCompletion $completion) => $completion->created_at->isSameDay($day))
-                    ->sum('xp'),
+                'xp' => (int) (
+                    $this->missionCompletions->filter(fn ($record) => $record->created_at->isSameDay($day))->sum('xp')
+                    + $this->xpAwards->filter(fn ($record) => $record->created_at->isSameDay($day))->sum('xp')
+                ),
             ];
         }, range($days - 1, 0));
     }
@@ -283,7 +311,7 @@ class User extends Authenticatable
 
         if ($xp > 0) {
             $this->missionCompletions()->create(['mission' => $mission, 'xp' => $xp]);
-            $this->load('missionCompletions');
+            $this->load(['missionCompletions', 'xpAwards']);
         }
 
         return $xp;
@@ -312,6 +340,7 @@ class User extends Authenticatable
     {
         return $this->missionCompletions
             ->map(fn (MissionCompletion $completion) => $completion->created_at->toDateString())
+            ->merge($this->xpAwards->map(fn (XpAward $award) => $award->created_at->toDateString()))
             ->unique()
             ->sort()
             ->values();

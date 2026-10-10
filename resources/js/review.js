@@ -176,18 +176,26 @@ export function initReview() {
         card.hidden = true;
         progress.hidden = true;
 
+        let result = { xpEarned: 0 };
+
         try {
-            await fetch('/tekrar/tamamla', {
+            const response = await fetch('/tekrar/tamamla', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', Accept: 'application/json', 'X-CSRF-TOKEN': csrfToken() },
                 body: JSON.stringify({ correct, wrong }),
             });
+            result = await response.json();
         } catch {
             // The review still happened on screen; a failed save just means it stays due.
         }
 
         summary.querySelector('[data-review-cleared]').textContent = correct.length;
         summary.querySelector('[data-review-again]').textContent = wrong.length;
+
+        if (result.xpEarned > 0) {
+            summary.querySelector('[data-review-xp]').textContent = result.xpEarned;
+            summary.querySelector('[data-review-xp-line]').hidden = false;
+        }
         summary.hidden = false;
         summary.focus({ preventScroll: true });
         react('correct');

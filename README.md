@@ -43,6 +43,7 @@ görev bitince seninle birlikte kutlar.
   bir **Siber Şövalye Beratı**.
 - **Kale kontrol listesi.** Öğrendiklerini gerçek hayatta uyguladıkça işaretlediğin 12 maddelik kişisel güvenlik listesi. Her madde onu
   anlatan göreve bağlı, işaretler hesabına kaydedilir ve listeyi bitirene rozet verilir.
+- **Hata defteri.** Yanlış cevapladığın test soruları bir süre sonra “Günün tekrarı”nda yeniden karşına çıkar; doğru bilince defterden silinir, bilemezsen tekrar gelir.
 - **Hesaplar.** Kayıt ve giriş, profil, maskot rengini seçme, hesabı silme. İlk görev hesap açmadan denenebilir; misafirken kazanılan
   ilerleme kayıt olunca hesaba aktarılır.
 - **Canlı bir arayüz.** İlk girişte kısa bir karşılama, doğru/yanlış cevapta parazitlenip “hasar alan” ya da parlayan maskot Bit, konfetili kutlama ekranı (bölüm bitince özel kutlama), ses ve titreşim efektleri, yolda sıradaki göreve otomatik kaydırma. Cihazında
@@ -138,7 +139,7 @@ ekler. Bu hesap yalnızca bilgisayarındaki geliştirme ortamı içindir.
 php artisan test
 ```
 
-Pest ile yazılmış 145 test; kayıt ve giriş, görevlerin sırayla açılması, XP ve seri hesapları, rozetler, sıralama ve beratın yanında
+Pest ile yazılmış 153 test; kayıt ve giriş, görevlerin sırayla açılması, XP ve seri hesapları, rozetler, sıralama ve beratın yanında
 kontrol listesinin ve alıştırma içeriklerinin doğru kurulduğunu da denetler (örneğin her sorunun tek bir doğru cevabı olması). Kod stili için
 `vendor/bin/pint` kullanılır.
 

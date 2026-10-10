@@ -1,11 +1,15 @@
 import { react } from '../mascot';
+import { bankMissedQuestion, questionSnapshot } from '../review';
 import { completeRequirement } from './requirement';
 
 /**
  * Multiple-choice questions: a wrong pick is crossed out so the learner can try
- * again, the right pick reveals the explanation.
+ * again, the right pick reveals the explanation. The first time a logged-in learner
+ * misses a question, it is saved to their review notebook for another day.
  */
 export function initQuizzes() {
+    const allQuestions = [...document.querySelectorAll('[data-quiz] [data-question]')];
+
     document.querySelectorAll('[data-quiz]').forEach((quiz) => {
         const questions = [...quiz.querySelectorAll('[data-question]')];
 
@@ -26,6 +30,7 @@ export function initQuizzes() {
                         status.dataset.tone = 'wrong';
                         status.textContent = 'Bu değil, bir daha dene.';
                         react('wrong');
+                        bankMissedQuestion(questionSnapshot(question, allQuestions.indexOf(question)));
 
                         return;
                     }

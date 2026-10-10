@@ -8,6 +8,7 @@ use App\Http\Controllers\LeaderboardController;
 use App\Http\Controllers\MissionCompletionController;
 use App\Http\Controllers\MissionController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [MissionController::class, 'index'])->name('missions.index');
@@ -33,4 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/berat', [CertificateController::class, 'show'])->name('certificate');
     Route::get('/kontrol-listesi', [ChecklistController::class, 'show'])->name('checklist.show');
     Route::put('/kontrol-listesi', [ChecklistController::class, 'update'])->middleware('throttle:60,1')->name('checklist.update');
+    Route::get('/tekrar', [ReviewController::class, 'show'])->name('review.show');
+    Route::post('/tekrar', [ReviewController::class, 'store'])->middleware('throttle:120,1')->name('review.store');
+    Route::post('/tekrar/tamamla', [ReviewController::class, 'resolve'])->middleware('throttle:60,1')->name('review.resolve');
 });

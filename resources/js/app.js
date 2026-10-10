@@ -26,6 +26,7 @@ import { initVault } from './missions/vault';
 import { initPasswordFields } from './password-fields';
 import { initPath } from './path';
 import { initPrint, initReveal, initToast } from './reveal';
+import { initReview } from './review';
 import { initSound } from './sound';
 
 initReveal();
@@ -35,6 +36,7 @@ initCoach();
 initSound();
 initGlossary();
 initOnboarding();
+initReview();
 initChecklist();
 initPasswordFields();
 initPath();

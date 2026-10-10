@@ -186,6 +186,17 @@
                     </ol>
                 </section>
 
+                @php($dueReviews = $learner->dueReviewCount())
+                @if ($dueReviews > 0)
+                    <a href="{{ route('review.show') }}" class="border-alert/40 bg-alert/8 hover:border-alert riveted flex items-center gap-3 rounded-[1.5rem] border-2 p-5 transition-colors">
+                        <x-icons.flame class="text-alert size-10 shrink-0" />
+                        <span>
+                            <span class="font-display block text-lg font-extrabold">Günün tekrarı · {{ $dueReviews }} soru</span>
+                            <span class="text-muted block text-sm leading-snug">Daha önce takıldığın soruları pekiştir, defterini temizle.</span>
+                        </span>
+                    </a>
+                @endif
+
                 <a href="{{ route('leaderboard') }}" class="bg-card border-line hover:border-signal flex items-center gap-3 rounded-[1.5rem] border-2 p-5 transition-colors">
                     <x-icons.trophy class="text-signal size-10 shrink-0" />
                     <span>

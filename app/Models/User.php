@@ -73,6 +73,24 @@ class User extends Authenticatable
     }
 
     /**
+     * The learner's mistake notebook: quiz questions they got wrong, for later review.
+     *
+     * @return HasMany<ReviewItem, $this>
+     */
+    public function reviewItems(): HasMany
+    {
+        return $this->hasMany(ReviewItem::class);
+    }
+
+    /**
+     * How many saved questions are due to be reviewed today.
+     */
+    public function dueReviewCount(): int
+    {
+        return $this->reviewItems()->due()->count();
+    }
+
+    /**
      * Missions completed at least once, in path order.
      *
      * @return list<Mission>
